@@ -12,11 +12,21 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: mandolin_development
+  database: apollo_development
   pool: 5
-  username: mandolin
+  username: root
   password:
   host: localhost
+
+# development:
+#   adapter: mysql2
+#   encoding: utf8
+#   reconnect: false
+#   database: apollo_production
+#   pool: 5
+#   username: nandor
+#   password: nandor12345
+#   host: 180.150.179.158
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,9 +35,9 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: mandolin_test
+  database: apollo_test
   pool: 5
-  username: mandolin
+  username: root
   password:
   host: localhost
 
@@ -35,8 +45,8 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: mandolin_production
+  database: apollo_production
   pool: 5
-  username: mandolin
-  password:
+  username: nandor
+  password: <%= ENV['MANDOLIN_DATABASE_PASSWORD'] %>
   host: localhost

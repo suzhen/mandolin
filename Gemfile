@@ -9,6 +9,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'thin'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
@@ -27,7 +28,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bootstrap', '~> 4.0.0'
 gem 'high_voltage'
 gem 'jquery-rails'
-gem 'mysql2', '~> 0.3.18'
+gem 'mysql2'
 gem 'slim-rails'
 group :development do
   gem 'better_errors'
@@ -36,6 +37,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.1.0'
   gem 'capistrano-rails-console'
   gem 'capistrano-rvm', '~> 0.1.1'
+  gem 'capistrano-chruby'
   gem 'guard-bundler'
   gem 'guard-rails'
   gem 'guard-rspec'
@@ -55,3 +57,23 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
 end
+
+gem "carrierwave"
+
+gem 'carrierwave-upyun'
+
+gem 'acts-as-taggable-on'
+
+gem 'mini_magick'
+
+gem 'awesome_nested_set'
+
+gem 'simple_form'
+
+gem 'rails_admin', '~> 1.4', '>= 1.4.2'
+
+gem 'devise'
+
+#paging
+gem 'kaminari'                 
+gem 'bootstrap-kaminari-views' 

@@ -1,4 +1,4 @@
-set :application, 'my_app_name'
+set :application, 'mandolin'
 set :repo_url, 'git@example.com:me/my_repo.git'
 
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
