@@ -30,6 +30,7 @@ gem 'high_voltage'
 gem 'jquery-rails'
 gem 'mysql2'
 gem 'slim-rails'
+gem 'mini_racer'
 group :development do
   gem 'better_errors'
   gem 'capistrano'
