@@ -30,8 +30,7 @@ gem 'high_voltage'
 gem 'jquery-rails'
 gem 'mysql2'
 gem 'slim-rails'
-gem 'libv8', '~> 6.7'
-gem 'mini_racer', '~> 0.2.0'
+
 group :development do
   gem 'better_errors'
   gem 'capistrano'
@@ -78,3 +77,7 @@ gem 'devise'
 #paging
 gem 'kaminari'                 
 # gem 'bootstrap-kaminari-views' 
+
+
+gem 'libv8', '~> 6.7'
+gem 'mini_racer', '~> 0.2.0'
