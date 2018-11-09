@@ -25,7 +25,7 @@ group :test do
   gem 'chromedriver-helper'
 end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'bootstrap', '~> 4.1.3'
+gem 'bootstrap'
 gem 'high_voltage'
 gem 'jquery-rails'
 gem 'mysql2'
@@ -75,4 +75,4 @@ gem 'devise'
 
 #paging
 gem 'kaminari'                 
-gem 'bootstrap-kaminari-views' 
+# gem 'bootstrap-kaminari-views' 

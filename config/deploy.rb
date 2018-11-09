@@ -3,7 +3,7 @@ set :repo_url, 'git@github.com:suzhen/mandolin.git'
 
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 set :branch,'master'
-set :chruby_ruby, 'ruby-2.5.3-p105'
+set :chruby_ruby, '2.5.3'
 set :deploy_to, '/var/www/mandolin'
 # set :deploy_to, '/var/www/my_app'
 set :scm, :git
@@ -12,7 +12,7 @@ set :scm, :git
 # set :log_level, :debug
 # set :pty, true
 
-set :linked_files, %w{config/database.yml}
+# set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
