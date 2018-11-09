@@ -3,7 +3,7 @@ set :repo_url, 'git@github.com:suzhen/mandolin.git'
 
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 set :branch,'master'
-
+set :chruby_ruby, 'ruby-2.5.3-p105'
 set :deploy_to, '/var/www/mandolin'
 # set :deploy_to, '/var/www/my_app'
 set :scm, :git
