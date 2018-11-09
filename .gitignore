@@ -85,3 +85,6 @@ pickle-email-*.html
 *~
 
 mock
+
+.ruby-gemset
+.ruby-version

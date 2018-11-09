@@ -48,5 +48,6 @@ production:
   database: apollo_production
   pool: 5
   username: nandor
-  password: <%= ENV['MANDOLIN_DATABASE_PASSWORD'] %>
+  password: <%= ENV['NANDOR_DATABASE_PASSWORD'] %>
   host: localhost
+  socket: '/var/lib/mysql/mysql.sock'
