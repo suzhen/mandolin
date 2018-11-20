@@ -52,7 +52,7 @@ namespace :deploy do
     end
   end
 
-  after :finishing, 'deploy:cleanup'
+  # after :finishing, 'deploy:cleanup'
 
   after :published, :restart
 end
