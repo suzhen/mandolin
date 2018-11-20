@@ -6,6 +6,7 @@ class Song < ApplicationRecord
     # association
     has_and_belongs_to_many :albums, join_table: :albums_songs
     has_and_belongs_to_many :artists, join_table: :artist_songs
+    has_and_belongs_to_many :playlists, join_table: :playlists_songs
 
     has_one :melody_copy
     has_one :lyric_copy

@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  devise_for :users
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root to: 'visitors#index'
+
+  namespace :api do
+    namespace :v1 do
+      resources :playlists, only: [:create, :update, :destroy]
+      resources :songs, only: [:update] do
+        resources :tags
+      end
+    end
+  end
 end

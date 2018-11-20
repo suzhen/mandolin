@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_17_103055) do
+ActiveRecord::Schema.define(version: 2018_11_17_110032) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2018_11_17_103055) do
   end
 
   create_table "lyric_copies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "lyricists"
+    t.string "name"
     t.float "share"
     t.date "begin_date"
     t.date "end_date"
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2018_11_17_103055) do
   end
 
   create_table "melody_copies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "composers"
+    t.string "name"
     t.float "share"
     t.date "begin_date"
     t.date "end_date"
@@ -148,6 +148,18 @@ ActiveRecord::Schema.define(version: 2018_11_17_103055) do
     t.string "name", collation: "utf8_bin"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "lyric_copies", "songs"

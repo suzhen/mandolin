@@ -3,5 +3,5 @@ CarrierWave.configure do |config|
     config.upyun_username = 'rc002'
     config.upyun_password = 'sz1300715'
     config.upyun_bucket = 'song-nandor'
-    config.upyun_bucket_host = "song-nandor.test.upcdn.net"
+    config.upyun_bucket_host = "rc01.nandor.cn"
 end
