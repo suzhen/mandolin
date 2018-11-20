@@ -54,5 +54,5 @@ namespace :deploy do
 
   after :finishing, 'deploy:cleanup'
 
-  after :published, :restart_thin
+  after :published, :restart
 end
