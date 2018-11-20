@@ -12,7 +12,8 @@ set :scm, :git
 # set :log_level, :debug
 # set :pty, true
 
-# set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/boot_app.yml}
+
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -26,13 +27,21 @@ set :bundle_binstubs, nil
 
 namespace :deploy do
 
-  desc 'Restart application'
-  task :restart do
-    on roles(:web), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      execute :touch, release_path.join('tmp/restart.txt')
+  task :restart  do
+    on roles(:web),in: :sequence, wait: 3 do
+      within release_path do
+        execute :bundle,"exec thin restart -C /var/www/mandolin/shared/config/boot_app.yml"
+      end
     end
   end
+
+  # desc 'Restart application'
+  # task :restart do
+  #   on roles(:web), in: :sequence, wait: 5 do
+  #     # Your restart mechanism here, for example:
+  #     execute :touch, release_path.join('tmp/restart.txt')
+  #   end
+  # end
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
@@ -45,4 +54,5 @@ namespace :deploy do
 
   after :finishing, 'deploy:cleanup'
 
+  after :published, :restart_thin
 end
