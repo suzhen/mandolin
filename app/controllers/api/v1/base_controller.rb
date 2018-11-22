@@ -1,5 +1,5 @@
 class Api::V1::BaseController < ApplicationController
-    before_action :authenticate_user!
+    # before_action :authenticate_user!
 
     # # disable the CSRF token
     # protect_from_forgery with: :null_session
