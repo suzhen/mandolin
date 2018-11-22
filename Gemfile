@@ -74,6 +74,8 @@ gem 'rails_admin', '~> 1.4', '>= 1.4.2'
 
 gem 'devise'
 
+gem 'rack-cors'
+
 #paging
 gem 'kaminari'                 
 # gem 'bootstrap-kaminari-views' 
