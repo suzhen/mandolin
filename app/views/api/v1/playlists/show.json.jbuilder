@@ -8,4 +8,11 @@ json.songs @playlist.songs do |song|
     json.composers song.composers
     json.lyricists song.lyricists
     json.audioFile "http://#{song.audio_file}"
+    json.ISNB song.albums[0].ISBN
+    json.ISRC song.ISRC
+    json.genre song.genre
+    json.length song.duration
+    json.lyric song.lyrics
+    json.ownership song.ownership
+    json.tags song.tags.map(&:name)
 end

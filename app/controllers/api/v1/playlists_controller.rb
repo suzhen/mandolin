@@ -49,7 +49,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
     # Never trust parameters from the scary internet, only allow the white list through.
     def playlist_params
       params.fetch(:playlist, {}).permit(:name, :introduction).tap do |whitelisted|
-        whitelisted[:song_ids] = params[:song_ids]
+        whitelisted[:song_ids] = params[:song_ids] if params[:song_ids]
       end
     end
 end
