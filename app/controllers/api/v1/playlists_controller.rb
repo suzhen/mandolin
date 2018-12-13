@@ -17,29 +17,23 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   # GET /api/v1/playlists/1
   # GET /api/v1/playlists/1.json
   def show
+    respond_to do |format|
+      if @playlist.code == playlist_params[:shared_code]
+        format.json { render :show, status: :ok, location: @api_v1_playlist }
+      else
+        format.json { render json: @playlist.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /api/v1/playlists/1
   # PATCH/PUT /api/v1/playlists/1.json
   def update
     respond_to do |format|
-      # 如果有shared_code，那么就是分享
-      if playlist_params[:shared_code]
-        if @playlist.code == playlist_params[:shared_code]
-          @current_user = User.find_by_id(session[:current_user_id])
-          @playlist.users << @current_user
-          if @playlist.save
-            format.json { render :show, status: :ok, location: @api_v1_playlist }
-          else
-            format.json { render json: @playlist.errors, status: :unprocessable_entity }
-          end
-        end 
+      if @playlist.update(playlist_params)
+        format.json { render :show, status: :ok, location: @api_v1_playlist }
       else
-        if @playlist.update(playlist_params)
-          format.json { render :show, status: :ok, location: @api_v1_playlist }
-        else
-          format.json { render json: @playlist.errors, status: :unprocessable_entity }
-        end
+        format.json { render json: @playlist.errors, status: :unprocessable_entity }
       end
     end
   end

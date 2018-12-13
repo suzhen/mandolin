@@ -1,5 +1,5 @@
 class Api::V1::SongsController < Api::V1::BaseController
-  before_action :set_song, only: [:update]
+  before_action :set_song, only: [:update, :show]
 
   # # GET /api/v1/songs
   # # GET /api/v1/songs.json
