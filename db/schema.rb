@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2018_12_13_110600) do
   end
 
   create_table "lyric_copies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "lyricists"
+    t.string "name"
     t.float "share"
     t.date "begin_date"
     t.date "end_date"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2018_12_13_110600) do
   end
 
   create_table "melody_copies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "composers"
+    t.string "name"
     t.float "share"
     t.date "begin_date"
     t.date "end_date"
