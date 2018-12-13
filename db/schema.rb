@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_065625) do
+ActiveRecord::Schema.define(version: 2018_12_13_110600) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -79,6 +79,8 @@ ActiveRecord::Schema.define(version: 2018_12_10_065625) do
     t.text "introduction"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "creator_id"
+    t.string "code"
   end
 
   create_table "playlists_songs", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -86,6 +88,13 @@ ActiveRecord::Schema.define(version: 2018_12_10_065625) do
     t.bigint "song_id", null: false
     t.index ["playlist_id"], name: "index_playlists_songs_on_playlist_id"
     t.index ["song_id"], name: "index_playlists_songs_on_song_id"
+  end
+
+  create_table "playlists_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "playlist_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["playlist_id"], name: "index_playlists_users_on_playlist_id"
+    t.index ["user_id"], name: "index_playlists_users_on_user_id"
   end
 
   create_table "producer_copies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

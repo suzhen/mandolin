@@ -83,3 +83,6 @@ gem 'kaminari'
 
 gem 'libv8', '~> 6.7'
 gem 'mini_racer', '~> 0.2.0'
+
+
+gem 'regexp-examples'
