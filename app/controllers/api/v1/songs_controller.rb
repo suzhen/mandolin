@@ -68,5 +68,9 @@ class Api::V1::SongsController < Api::V1::BaseController
     # Never trust parameters from the scary internet, only allow the white list through.
     def api_v1_song_params
       params.fetch(:song, {}).permit(:tag_list,:genre,:composers,:lyricists,:ISRC,:ownership,:duration,:release_date,:lyrics)
+      #.tap do |whitelisted|
+        # whitelisted[:artists] = params[:artists] if params[:artists]
+        # whitelisted[:shared_code] = params[:shared_code] if params[:shared_code]
+      # end
     end
 end

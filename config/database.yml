@@ -51,3 +51,13 @@ production:
   password: <%= ENV['NANDOR_DATABASE_PASSWORD'] %>
   host: localhost
   socket: '/var/lib/mysql/mysql.sock'
+
+# production:
+#   adapter: mysql2
+#   encoding: utf8
+#   reconnect: false
+#   database: apollo_production
+#   pool: 5
+#   username: nandor
+#   password: nandor12345
+#   host: 180.150.179.158
