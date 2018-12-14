@@ -4,7 +4,9 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   # POST /api/v1/playlists
   # POST /api/v1/playlists.json
   def create
+    @current_user = User.find_by_id(session[:current_user_id])
     @playlist = Playlist.new(playlist_params)
+    @playlist.creator = @current_user
     respond_to do |format|
       if @playlist.save
         format.json { render :show, status: :created, location: @api_v1_playlist }
@@ -17,10 +19,6 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   # GET /api/v1/playlists/1
   # GET /api/v1/playlists/1.json
   def show
-    puts "******"
-    puts request.headers["Origin"]
-    Rails.logger.info "*********"
-    Rails.logger.info request.headers["Origin"]
     respond_to do |format|
       if @playlist.code == playlist_params[:shared_code]
         format.json { render :show, status: :ok, location: @api_v1_playlist }
