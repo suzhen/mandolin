@@ -17,6 +17,10 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   # GET /api/v1/playlists/1
   # GET /api/v1/playlists/1.json
   def show
+    puts "******"
+    puts request.headers["Origin"]
+    Rails.logger.info "*********"
+    Rails.logger.info request.headers["Origin"]
     respond_to do |format|
       if @playlist.code == playlist_params[:shared_code]
         format.json { render :show, status: :ok, location: @api_v1_playlist }
