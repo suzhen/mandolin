@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_13_110600) do
+ActiveRecord::Schema.define(version: 2018_12_14_040000) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -46,8 +46,14 @@ ActiveRecord::Schema.define(version: 2018_12_13_110600) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "dict_genres", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "code"
+    t.string "chinese_name"
+    t.string "english_name"
+  end
+
   create_table "lyric_copies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "lyricists"
     t.float "share"
     t.date "begin_date"
     t.date "end_date"
@@ -61,7 +67,7 @@ ActiveRecord::Schema.define(version: 2018_12_13_110600) do
   end
 
   create_table "melody_copies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "composers"
     t.float "share"
     t.date "begin_date"
     t.date "end_date"
