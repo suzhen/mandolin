@@ -57,7 +57,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
     def playlist_params
       params.fetch(:playlist, {}).permit(:name, :introduction).tap do |whitelisted|
         whitelisted[:song_ids] = params[:song_ids] if params[:song_ids]
-        whitelisted[:shared_code] = params[:shared_code] if params[:song_ids]
+        whitelisted[:shared_code] = params[:shared_code] if params[:shared_code]
       end
     end
 end
