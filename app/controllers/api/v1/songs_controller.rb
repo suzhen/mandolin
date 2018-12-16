@@ -40,8 +40,49 @@ class Api::V1::SongsController < Api::V1::BaseController
   # PATCH/PUT /api/v1/songs/1
   # PATCH/PUT /api/v1/songs/1.json
   def update
+    song_params = {}
+    artist_ids = []
+    album_ids = ""
+    excepts = []
+    if api_v1_song_params[:artist_names].present?
+      artist_ids = api_v1_song_params[:artist_names].map{|name| Artist.find_or_create_by(:name => name).id}
+      excepts << "artist_names"
+      excepts << "first_artist_id"
+    end
+    
+    if api_v1_song_params[:artist_ids].present? 
+      if api_v1_song_params[:first_artist_id] 
+        artist_ids = api_v1_song_params[:artist_ids] + artist_ids
+      else 
+        artist_ids = artist_ids + api_v1_song_params[:artist_ids]
+      end
+      excepts << "artist_ids"
+      excepts << "first_artist_id"
+    end
+    
+    if api_v1_song_params[:album_names].present?
+      @album = Album.create(:title => api_v1_song_params[:album_names], :artist_id => artist_ids.present? ? artist_ids[0]: @major_artist.id)
+      @album.songs << @song
+      @album.save
+      album_ids = @album.id
+      excepts << "album_names"
+    end
+
+    song_params = api_v1_song_params.except(:temp)
+    excepts.map(&:to_sym).each do |e| 
+      song_params = song_params.except(e)
+    end
+
+    if artist_ids.present?
+      song_params[:artist_ids] = artist_ids
+    end
+
+    if album_ids.present?
+      song_params[:album_ids] = album_ids
+    end
+    
     respond_to do |format|
-      if @song.update(api_v1_song_params)
+      if @song.update(song_params)
         format.json { render :show, status: :ok, location: @api_v1_song }
       else
         format.json { render json: @api_v1_song.errors, status: :unprocessable_entity }
@@ -67,10 +108,27 @@ class Api::V1::SongsController < Api::V1::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def api_v1_song_params
-      params.fetch(:song, {}).permit(:tag_list,:genre,:composers,:lyricists,:ISRC,:ownership,:duration,:release_date,:lyrics)
-      #.tap do |whitelisted|
-        # whitelisted[:artists] = params[:artists] if params[:artists]
-        # whitelisted[:shared_code] = params[:shared_code] if params[:shared_code]
-      # end
+      params.fetch(:song, {}).permit(:tag_list, :genre, :composers, :lyricists, :ISRC,
+                                     :ownership, :duration, :release_date, :lyrics).tap do |whitelisted|
+        if params[:artists].present?
+          ids = params[:artists].map{|obj| obj["id"]}.compact
+          new_names = params[:artists].map{|obj| obj["name"] if obj["id"].blank? }.compact
+          if ids.present?
+            whitelisted[:artist_ids] = ids
+          end
+          if new_names.present?
+            whitelisted[:artist_names] = new_names
+          end
+          whitelisted[:first_artist_id] = (params[:artists].first)["id"]
+        end
+        if params[:album].present?
+          if params[:album][:id].present?
+            whitelisted[:album_ids] = params[:album][:id]
+          end
+          if params[:album][:id].blank? && params[:album][:name].present?
+            whitelisted[:album_names] = params[:album][:name]
+          end
+        end
+      end
     end
 end
