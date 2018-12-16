@@ -43,6 +43,7 @@ class Api::V1::SongsController < Api::V1::BaseController
     song_params = {}
     artist_ids = []
     album_ids = ""
+    isbn = ""
     excepts = []
     if api_v1_song_params[:artist_names].present?
       artist_ids = api_v1_song_params[:artist_names].map{|name| Artist.find_or_create_by(:name => name).id}
@@ -68,6 +69,11 @@ class Api::V1::SongsController < Api::V1::BaseController
       excepts << "album_names"
     end
 
+    if api_v1_song_params[:ISBN].present?
+      isbn = api_v1_song_params[:ISBN]
+      excepts << "ISBN"
+    end
+
     song_params = api_v1_song_params.except(:temp)
     excepts.map(&:to_sym).each do |e| 
       song_params = song_params.except(e)
@@ -83,6 +89,11 @@ class Api::V1::SongsController < Api::V1::BaseController
     
     respond_to do |format|
       if @song.update(song_params)
+        if isbn.present?
+          @album = @song.albums.first
+          @album.ISBN = isbn
+          @album.save
+        end
         format.json { render :show, status: :ok, location: @api_v1_song }
       else
         format.json { render json: @api_v1_song.errors, status: :unprocessable_entity }
@@ -109,7 +120,7 @@ class Api::V1::SongsController < Api::V1::BaseController
     # Never trust parameters from the scary internet, only allow the white list through.
     def api_v1_song_params
       params.fetch(:song, {}).permit(:tag_list, :genre, :composers, :lyricists, :ISRC,
-                                     :ownership, :duration, :release_date, :lyrics).tap do |whitelisted|
+                                     :ownership, :duration, :release_date, :lyrics, :title).tap do |whitelisted|
         if params[:artists].present?
           ids = params[:artists].map{|obj| obj["id"]}.compact
           new_names = params[:artists].map{|obj| obj["name"] if obj["id"].blank? }.compact
@@ -129,6 +140,7 @@ class Api::V1::SongsController < Api::V1::BaseController
             whitelisted[:album_names] = params[:album][:name]
           end
         end
+        whitelisted[:ISBN] = params[:ISBN] if params[:ISBN].present?
       end
     end
 end
