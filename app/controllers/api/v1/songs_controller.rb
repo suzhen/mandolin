@@ -93,11 +93,11 @@ class Api::V1::SongsController < Api::V1::BaseController
     end
     
     respond_to do |format|
+      if isbn.present?
+        @album = @song.albums.first
+        @album.update(:ISBN => isbn)
+      end
       if @song.update(song_params)
-        if isbn.present?
-          @album = @song.albums.first
-          @album.update(:ISBN => isbn)
-        end
         format.json { render :show, status: :ok, location: @api_v1_song }
       else
         format.json { render json: @api_v1_song.errors, status: :unprocessable_entity }
