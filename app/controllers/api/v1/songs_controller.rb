@@ -96,8 +96,7 @@ class Api::V1::SongsController < Api::V1::BaseController
       if @song.update(song_params)
         if isbn.present?
           @album = @song.albums.first
-          @album.ISBN = isbn
-          @album.save
+          @album.update(:ISBN => isbn)
         end
         format.json { render :show, status: :ok, location: @api_v1_song }
       else
