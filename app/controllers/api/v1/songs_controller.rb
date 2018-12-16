@@ -86,6 +86,11 @@ class Api::V1::SongsController < Api::V1::BaseController
     if album_ids.present?
       song_params[:album_ids] = album_ids
     end
+
+    if song_params[:genre].present?
+      @genre = Genre.find_by(:chinese_name=>song_params[:genre])
+      song_params[:genre] = @genre.code
+    end
     
     respond_to do |format|
       if @song.update(song_params)
