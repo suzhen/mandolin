@@ -94,7 +94,11 @@ class Api::V1::SongsController < Api::V1::BaseController
     
     respond_to do |format|
       if isbn.present?
+        puts "*****"
+        Rails.logger.info "^^^^^^^"
         @album = @song.albums.first
+        puts @album.ISBN
+        Rails.logger.info @album.ISBN
         @album.update(:ISBN => isbn)
       end
       if @song.update(song_params)
