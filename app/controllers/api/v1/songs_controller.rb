@@ -120,7 +120,8 @@ class Api::V1::SongsController < Api::V1::BaseController
     # Never trust parameters from the scary internet, only allow the white list through.
     def api_v1_song_params
       params.fetch(:song, {}).permit(:tag_list, :genre, :composers, :lyricists, :ISRC,
-                                     :ownership, :duration, :release_date, :lyrics, :title).tap do |whitelisted|
+                                     :ownership, :duration, :release_date, :lyrics, :title,
+                                     :record_company, :publisher, :library_name).tap do |whitelisted|
         if params[:artists].present?
           ids = params[:artists].map{|obj| obj["id"]}.compact
           new_names = params[:artists].map{|obj| obj["name"] if obj["id"].blank? }.compact
