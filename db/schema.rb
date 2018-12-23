@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_16_105939) do
+ActiveRecord::Schema.define(version: 2018_12_23_144713) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -126,22 +126,28 @@ ActiveRecord::Schema.define(version: 2018_12_16_105939) do
   end
 
   create_table "songs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
-    t.text "lyrics"
-    t.date "release_date"
-    t.integer "genre"
-    t.string "grouping"
-    t.string "composers"
-    t.string "lyricists"
-    t.string "audio_file"
+    t.string "title", comment: "歌曲名称"
+    t.text "lyrics", comment: "歌词"
+    t.date "release_date", comment: "发行日期"
+    t.integer "genre", comment: "流派"
+    t.string "grouping", comment: "分类"
+    t.string "composers", comment: "曲作者"
+    t.string "lyricists", comment: "词作者"
+    t.string "audio_file", comment: "保存文件"
     t.string "ISRC"
-    t.string "duration"
-    t.string "ownership"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "record_company"
-    t.string "publisher"
-    t.string "library_name"
+    t.string "duration", comment: "长时"
+    t.string "ownership", comment: "所属关系"
+    t.datetime "created_at", null: false, comment: "创建时间"
+    t.datetime "updated_at", null: false, comment: "更新时间"
+    t.string "record_company", comment: "唱片公司"
+    t.string "publisher", comment: "发行公司"
+    t.string "library_name", comment: "曲库名称"
+    t.string "language", comment: "语种"
+    t.string "producer", comment: "制作人"
+    t.string "recording_room", comment: "录音工作室"
+    t.string "mixer", comment: "录音师"
+    t.string "designer", comment: "设计"
+    t.string "ar", comment: "艺人与制作部"
   end
 
   create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
