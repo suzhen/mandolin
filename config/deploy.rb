@@ -5,7 +5,6 @@ set :repo_url, 'git@github.com:suzhen/mandolin.git'
 set :branch,'master'
 set :chruby_ruby, '2.5.3'
 set :deploy_to, '/var/www/mandolin'
-# set :deploy_to, '/var/www/my_app'
 set :scm, :git
 
 # set :format, :pretty

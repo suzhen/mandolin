@@ -73,7 +73,8 @@ class Api::V1::SongsController < Api::V1::BaseController
       isbn = api_v1_song_params[:ISBN]
       excepts << "ISBN"
     end
-
+    puts "****"
+    puts api_v1_song_params
     song_params = api_v1_song_params.except(:temp)
     excepts.map(&:to_sym).each do |e| 
       song_params = song_params.except(e)
@@ -126,7 +127,12 @@ class Api::V1::SongsController < Api::V1::BaseController
       params.fetch(:song, {}).permit(:tag_list, :genre, :composers, :lyricists, :ISRC,
                                      :ownership, :duration, :release_date, :lyrics, :title,
                                      :record_company, :publisher, :library_name, :language, :producer, 
-                                     :recording_room, :mixer, :designer, :ar).tap do |whitelisted|
+                                     :recording_room, :mixer, :designer, :ar, :UPC, :arranger,
+                                     melody_copy_attributes: [:name, :share, :begin_date, :end_date, :disctrict, :agreement_number],
+                                     lyric_copy_attributes: [:name, :share, :begin_date, :end_date, :disctrict, :agreement_number],
+                                     producer_copy_attributes: [:name, :share, :begin_date, :end_date, :disctrict, :agreement_number],
+                                     recording_copy_attributes: [:name, :share, :begin_date, :end_date, :disctrict, :agreement_number],
+                                     other_info_attributes: [:publish_platform, :priority, :remark]).tap do |whitelisted|
         if params[:artists].present?
           ids = params[:artists].map{|obj| obj["id"]}.compact
           new_names = params[:artists].map{|obj| obj["name"] if obj["id"].blank? }.compact

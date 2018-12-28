@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_23_144713) do
+ActiveRecord::Schema.define(version: 2018_12_27_080512) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2018_12_23_144713) do
   end
 
   create_table "lyric_copies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "lyricists"
+    t.string "name"
     t.float "share"
     t.date "begin_date"
     t.date "end_date"
@@ -63,11 +63,12 @@ ActiveRecord::Schema.define(version: 2018_12_23_144713) do
     t.bigint "song_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "agreement_number", comment: "权利对应协议编号"
     t.index ["song_id"], name: "index_lyric_copies_on_song_id"
   end
 
   create_table "melody_copies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "composers"
+    t.string "name"
     t.float "share"
     t.date "begin_date"
     t.date "end_date"
@@ -77,7 +78,18 @@ ActiveRecord::Schema.define(version: 2018_12_23_144713) do
     t.bigint "song_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "agreement_number", comment: "权利对应协议编号"
     t.index ["song_id"], name: "index_melody_copies_on_song_id"
+  end
+
+  create_table "other_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "publish_platform"
+    t.string "priority"
+    t.text "remark"
+    t.bigint "song_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["song_id"], name: "index_other_infos_on_song_id"
   end
 
   create_table "playlists", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -109,6 +121,10 @@ ActiveRecord::Schema.define(version: 2018_12_23_144713) do
     t.bigint "song_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "agreement_number", comment: "权利对应协议编号"
+    t.date "begin_date", comment: "开始时间"
+    t.date "end_date", comment: "结束时间"
+    t.string "disctrict", comment: "授权地域"
     t.index ["song_id"], name: "index_producer_copies_on_song_id"
   end
 
@@ -122,6 +138,7 @@ ActiveRecord::Schema.define(version: 2018_12_23_144713) do
     t.bigint "song_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "agreement_number", comment: "权利对应协议编号"
     t.index ["song_id"], name: "index_recording_copies_on_song_id"
   end
 
@@ -148,6 +165,8 @@ ActiveRecord::Schema.define(version: 2018_12_23_144713) do
     t.string "mixer", comment: "录音师"
     t.string "designer", comment: "设计"
     t.string "ar", comment: "艺人与制作部"
+    t.string "UPC", comment: "UPC"
+    t.string "arranger", comment: "编曲者"
   end
 
   create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -189,6 +208,7 @@ ActiveRecord::Schema.define(version: 2018_12_23_144713) do
 
   add_foreign_key "lyric_copies", "songs"
   add_foreign_key "melody_copies", "songs"
+  add_foreign_key "other_infos", "songs"
   add_foreign_key "producer_copies", "songs"
   add_foreign_key "recording_copies", "songs"
 end

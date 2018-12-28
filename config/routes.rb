@@ -8,6 +8,11 @@ Rails.application.routes.draw do
       resources :playlists, only: [:show, :create, :update, :destroy]
       resources :songs, only: [:update] do
         resources :tags
+        # copy
+        resources :melody_copy
+        resources :lyric_copy
+        resources :producer_copy
+        resources :recording_copy
       end
     end
   end
