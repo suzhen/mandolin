@@ -1,7 +1,7 @@
 class CreateLyricCopies < ActiveRecord::Migration[5.2]
   def change
     create_table :lyric_copies do |t|
-      t.string :name
+      t.string :lyricists
       t.float :share
       t.date :begin_date
       t.date :end_date

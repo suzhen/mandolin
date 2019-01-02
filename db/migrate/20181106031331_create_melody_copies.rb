@@ -1,7 +1,7 @@
 class CreateMelodyCopies < ActiveRecord::Migration[5.2]
   def change
     create_table :melody_copies do |t|
-      t.string :name
+      t.string :composers
       t.float :share
       t.date :begin_date
       t.date :end_date
