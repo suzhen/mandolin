@@ -17,9 +17,9 @@ set :stage, :production
 # extended properties on the server.
 
 # nandor server
-# server '180.150.179.158', user: 'root', roles: %w{web app}, my_property: :my_value
+server '180.150.179.158', user: 'root', roles: %w{web app}, my_property: :my_value
 # polaris server
-server '106.75.8.150', user: 'root', roles: %w{web app}, my_property: :my_value
+# server '106.75.8.150', user: 'root', roles: %w{web app}, my_property: :my_value
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options

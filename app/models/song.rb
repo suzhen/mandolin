@@ -1,7 +1,7 @@
 class Song < ApplicationRecord
     # validates
     validates :title, presence: true
-    # validates :ISRC, uniqueness: true
+    after_initialize :ensure_copies
 
     # association
     has_and_belongs_to_many :albums, join_table: :albums_songs
@@ -22,6 +22,16 @@ class Song < ApplicationRecord
 
     has_one :other_info, :dependent => :destroy
     accepts_nested_attributes_for :other_info
+
+
+    def ensure_copies
+        return unless new_record?
+        self.melody_copy ||= MelodyCopy.new
+        self.lyric_copy ||= LyricCopy.new
+        self.producer_copy ||= ProducerCopy.new
+        self.recording_copy ||= RecordingCopy.new
+        self.other_info ||= OtherInfo.new
+    end
 
     mount_uploader :audio_file, MusicUploader
 

@@ -34,3 +34,5 @@ genreOptions =  [[10, '流行', 'Pop'],
 genreOptions.each do |genre|
     Genre.create(:code=>genre[0], :chinese_name=>genre[1], :english_name=>genre[2])
 end
+
+Artist.create(:name => "佚名", :gender => "0", :location => "中国" )

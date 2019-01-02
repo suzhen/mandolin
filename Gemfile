@@ -86,3 +86,5 @@ gem 'mini_racer', '~> 0.2.0'
 
 
 gem 'regexp-examples'
+
+gem "roo", "~> 2.7.0"
