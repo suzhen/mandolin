@@ -206,7 +206,7 @@ task :process_upyun=> :environment do         #cmd 命令行中执行 rake study
         @song = Song.find_by(:title => song_name)
         if @song.present?
             @song.audio_file = audio_file
-            @song.save
+            @song.save!
         end
     end
 end

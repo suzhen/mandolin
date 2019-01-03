@@ -33,7 +33,7 @@ class Song < ApplicationRecord
         self.other_info ||= OtherInfo.new
     end
 
-    mount_uploader :audio_file, MusicUploader
+    # mount_uploader :audio_file, MusicUploader
 
     acts_as_taggable 
 
