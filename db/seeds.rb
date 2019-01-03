@@ -37,4 +37,4 @@
 
 # Artist.create(:name => "佚名", :gender => "0", :location => "中国" )
 
-User.create(:ename => "admin@nandor.cn", :password => "superadmin" )
+User.create(:email => "admin@nandor.cn", :password => "superadmin" )
