@@ -1,4 +1,5 @@
 require 'roo'
+require 'csv' 
 
 def parse_name(name)
     if name.nil?
@@ -192,3 +193,21 @@ task :process_song_info => :environment do         #cmd 命令行中执行 rake 
 
     parse_info(ods.sheet(3), 5, 864, "代理")
 end
+
+
+# 第三步导入UPYUN上歌的地址
+task :process_upyun=> :environment do         #cmd 命令行中执行 rake study_rake 开始执行脚本，task是Rake最重要的方法.它的方法定义是:task(args, &block).任务体是一个block。
+    csv_text = File.read('./lib/tasks/Result.csv')
+    csv = CSV.parse(csv_text, :headers => true)
+    csv.each do |row|
+        o = row.to_hash
+        song_name =  o["title"]
+        audio_file = o["audio_file"]
+        @song = Song.find_by(:title => song_name)
+        if @song.present?
+            @song.audio_file = audio_file
+            @song.save
+        end
+    end
+end
+
