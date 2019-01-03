@@ -102,7 +102,7 @@ class Api::V1::SongsController < Api::V1::BaseController
       if isbn.present?
         @album = @song.albums.first
         @album.update(:ISBN => isbn)
-        album.update(:release_date => album_release_date)
+        @album.update(:release_date => album_release_date)
       end
       if @song.update(song_params)
         format.json { render :show, status: :ok, location: @api_v1_song }
