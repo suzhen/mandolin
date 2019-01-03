@@ -44,6 +44,7 @@ class Api::V1::SongsController < Api::V1::BaseController
     artist_ids = []
     album_ids = ""
     isbn = ""
+    album_release_date = ""
     excepts = []
     if api_v1_song_params[:artist_names].present?
       artist_ids = api_v1_song_params[:artist_names].map{|name| Artist.find_or_create_by(:name => name).id}
@@ -73,8 +74,12 @@ class Api::V1::SongsController < Api::V1::BaseController
       isbn = api_v1_song_params[:ISBN]
       excepts << "ISBN"
     end
-    puts "****"
-    puts api_v1_song_params
+
+    if api_v1_song_params[:album_release_date].present?
+      album_release_date = api_v1_song_params[:album_release_date]
+      excepts << "album_release_date"
+    end
+
     song_params = api_v1_song_params.except(:temp)
     excepts.map(&:to_sym).each do |e| 
       song_params = song_params.except(e)
@@ -97,6 +102,7 @@ class Api::V1::SongsController < Api::V1::BaseController
       if isbn.present?
         @album = @song.albums.first
         @album.update(:ISBN => isbn)
+        album.update(:release_date => album_release_date)
       end
       if @song.update(song_params)
         format.json { render :show, status: :ok, location: @api_v1_song }
@@ -153,6 +159,7 @@ class Api::V1::SongsController < Api::V1::BaseController
           end
         end
         whitelisted[:ISBN] = params[:ISBN] if params[:ISBN].present?
+        whitelisted[:album_release_date] = params[:album_release_date] if params[:album_release_date].present?
       end
     end
 end
