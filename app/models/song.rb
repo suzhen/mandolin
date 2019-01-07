@@ -8,17 +8,17 @@ class Song < ApplicationRecord
     has_and_belongs_to_many :artists, join_table: :artist_songs
     has_and_belongs_to_many :playlists, join_table: :playlists_songs
 
-    has_one :melody_copy, :dependent => :destroy
-    accepts_nested_attributes_for :melody_copy
+    has_many :melody_copies, :dependent => :destroy
+    accepts_nested_attributes_for :melody_copies
     
-    has_one :lyric_copy, :dependent => :destroy
-    accepts_nested_attributes_for :lyric_copy
+    has_many :lyric_copies, :dependent => :destroy
+    accepts_nested_attributes_for :lyric_copies
     
-    has_one :producer_copy, :dependent => :destroy
-    accepts_nested_attributes_for :producer_copy
+    has_many :producer_copies, :dependent => :destroy
+    accepts_nested_attributes_for :producer_copies
     
-    has_one :recording_copy, :dependent => :destroy
-    accepts_nested_attributes_for :recording_copy
+    has_many :recording_copies, :dependent => :destroy
+    accepts_nested_attributes_for :recording_copies
 
     has_one :other_info, :dependent => :destroy
     accepts_nested_attributes_for :other_info
@@ -26,10 +26,10 @@ class Song < ApplicationRecord
 
     def ensure_copies
         return unless new_record?
-        self.melody_copy ||= MelodyCopy.new
-        self.lyric_copy ||= LyricCopy.new
-        self.producer_copy ||= ProducerCopy.new
-        self.recording_copy ||= RecordingCopy.new
+        self.melody_copies << MelodyCopy.new
+        self.lyric_copies << LyricCopy.new
+        self.producer_copies << ProducerCopy.new
+        self.recording_copies << RecordingCopy.new
         self.other_info ||= OtherInfo.new
     end
 
