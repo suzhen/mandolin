@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_10_091829) do
+ActiveRecord::Schema.define(version: 2019_01_11_092514) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -171,6 +171,7 @@ ActiveRecord::Schema.define(version: 2019_01_10_091829) do
     t.integer "own_melody_copies", comment: "是否有曲版权"
     t.integer "own_producer_copies", comment: "是否有表演者版权"
     t.integer "own_recording_copies", comment: "是否有录音版权"
+    t.string "business", comment: "商业范围"
   end
 
   create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
