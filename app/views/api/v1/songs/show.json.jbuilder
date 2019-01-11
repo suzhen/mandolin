@@ -3,9 +3,10 @@ json.partial! "api_v1_song", api_v1_song: @song
 json.ID @song.id
 json.title @song.title
 json.album @song.albums.present? ? @song.albums[0].title : ""
+json.album_id @song.albums.present? ? @song.albums[0].id : ""
 json.album_release_date @song.albums.present? ? @song.albums[0].release_date : "0000-00-00"
 json.coverimg @song.albums.present? ? "http://#{@song.albums[0].artwork}" : "0000-00-00" 
-json.ISNB @song.albums.present? ? @song.albums[0].ISBN : "0000-00-00"  
+json.ISBN @song.albums.present? ? @song.albums[0].ISBN : "0000-00-00"  
 json.artists @song.artists.map(&:name)
 json.artist_ids @song.artists.map(&:id)
 json.composers @song.composers
@@ -25,6 +26,7 @@ json.designer @song.designer
 json.AR @song.ar
 json.UPC @song.UPC
 json.arranger @song.arranger
+json.business @song.business
 json.publish_platform @song.other_info.nil? ? "" : @song.other_info.publish_platform
 json.priority @song.other_info.nil? ? "" : @song.other_info.priority
 json.remark @song.other_info.nil? ? "" : @song.other_info.remark
