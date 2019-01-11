@@ -1,7 +1,8 @@
 class Song < ApplicationRecord
     # validates
     validates :title, presence: true
-    after_initialize :ensure_copies
+    after_initialize :ensure_attributes
+    before_save :ensure_copies
 
     # association
     has_and_belongs_to_many :albums, join_table: :albums_songs
@@ -24,14 +25,26 @@ class Song < ApplicationRecord
     accepts_nested_attributes_for :other_info
 
 
-    def ensure_copies
+    def ensure_attributes
         return unless new_record?
-        self.melody_copies << MelodyCopy.new
-        self.lyric_copies << LyricCopy.new
-        self.producer_copies << ProducerCopy.new
-        self.recording_copies << RecordingCopy.new
+        # self.melody_copies << MelodyCopy.new
+        # self.lyric_copies << LyricCopy.new
+        # self.producer_copies << ProducerCopy.new
+        # self.recording_copies << RecordingCopy.new
         self.other_info ||= OtherInfo.new
     end
+
+    def ensure_copies
+        self.own_lyric_copies = self.lyric_copies.present? ? self.accumulate_share(self.lyric_copies.map(&:share)) : false
+        self.own_melody_copies = self.melody_copies.present? ? self.accumulate_share(self.melody_copies.map(&:share)) : false
+        self.own_producer_copies = self.producer_copies.present? ? self.accumulate_share(self.producer_copies.map(&:share)) : false
+        self.own_recording_copies = self.recording_copies.present? ? self.accumulate_share(self.recording_copies.map(&:share)) : false
+    end
+
+    def accumulate_share shares
+        return shares.map(&:to_f).reduce(:+) > 0
+    end
+
 
     mount_uploader :audio_file, MusicUploader
 
