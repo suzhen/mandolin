@@ -134,10 +134,10 @@ class Api::V1::SongsController < Api::V1::BaseController
                                      :ownership, :duration, :release_date, :lyrics, :title,
                                      :record_company, :publisher, :library_name, :language, :producer, 
                                      :recording_room, :mixer, :designer, :ar, :UPC, :arranger, :business,
-                                     melody_copy_attributes: [:name, :share, :begin_date, :end_date, :disctrict, :agreement_number],
-                                     lyric_copy_attributes: [:name, :share, :begin_date, :end_date, :disctrict, :agreement_number],
-                                     producer_copy_attributes: [:name, :share, :begin_date, :end_date, :disctrict, :agreement_number],
-                                     recording_copy_attributes: [:name, :share, :begin_date, :end_date, :disctrict, :agreement_number],
+                                     melody_copy_attributes: [:name, :share, :begin_date, :end_date, :disctrit, :agreement_number],
+                                     lyric_copy_attributes: [:name, :share, :begin_date, :end_date, :disctrit, :agreement_number],
+                                     producer_copy_attributes: [:name, :share, :begin_date, :end_date, :disctrit, :agreement_number],
+                                     recording_copy_attributes: [:name, :share, :begin_date, :end_date, :disctrit, :agreement_number],
                                      other_info_attributes: [:publish_platform, :priority, :remark]).tap do |whitelisted|
         if params[:artists].present?
           ids = params[:artists].map{|obj| obj["id"]}.compact

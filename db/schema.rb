@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_11_092514) do
+ActiveRecord::Schema.define(version: 2019_01_13_141757) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2019_01_11_092514) do
     t.float "share"
     t.date "begin_date"
     t.date "end_date"
-    t.string "disctrict"
+    t.string "district"
     t.string "op"
     t.string "sp"
     t.bigint "song_id"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 2019_01_11_092514) do
     t.float "share"
     t.date "begin_date"
     t.date "end_date"
-    t.string "disctrict"
+    t.string "district"
     t.string "op"
     t.string "sp"
     t.bigint "song_id"
@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 2019_01_11_092514) do
     t.string "agreement_number", comment: "权利对应协议编号"
     t.date "begin_date", comment: "开始时间"
     t.date "end_date", comment: "结束时间"
-    t.string "disctrict", comment: "授权地域"
+    t.string "district"
     t.index ["song_id"], name: "index_producer_copies_on_song_id"
   end
 
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(version: 2019_01_11_092514) do
     t.float "share"
     t.date "begin_date"
     t.date "end_date"
-    t.string "disctrict"
+    t.string "district"
     t.string "sp"
     t.bigint "song_id"
     t.datetime "created_at", null: false
