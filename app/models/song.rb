@@ -45,6 +45,9 @@ class Song < ApplicationRecord
         return shares.map(&:to_f).reduce(:+) > 0
     end
 
+    def genere_to_str
+        return self.genre.present? ? Genre.find_by(:code=>self.genre).chinese_name : ""
+    end
 
     mount_uploader :audio_file, MusicUploader
 

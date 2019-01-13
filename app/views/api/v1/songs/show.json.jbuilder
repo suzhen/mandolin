@@ -13,7 +13,7 @@ json.composers @song.composers
 json.lyricists @song.lyricists
 json.audioFile "http://#{@song.audio_file}"
 json.ISRC @song.ISRC
-json.genre @song.genre
+json.genre @song.genere_to_str
 json.length @song.duration
 json.lyric @song.lyrics
 json.ownership @song.ownership
@@ -21,6 +21,7 @@ json.publisher @song.publisher
 json.language @song.language
 json.producer @song.producer
 json.recording_room @song.recording_room
+json.record_company @song.record_company
 json.mixer @song.mixer
 json.designer @song.designer
 json.AR @song.ar
