@@ -98,6 +98,23 @@ class Api::V1::SongsController < Api::V1::BaseController
       song_params[:genre] = @genre.code
     end
     
+    if song_params[:lyric_copies_attributes].present?
+      @song.lyric_copies.destroy_all
+    end
+
+    if song_params[:melody_copies_attributes].present?
+      @song.melody_copies.destroy_all
+    end
+
+    if song_params[:producer_copies_attributes].present?
+      @song.producer_copies.destroy_all
+    end
+    
+    if song_params[:recording_copies_attributes].present?
+      @song.recording_copies.destroy_all
+    end
+
+
     respond_to do |format|
       if isbn.present?
         @album = @song.albums.first
@@ -134,10 +151,10 @@ class Api::V1::SongsController < Api::V1::BaseController
                                      :ownership, :duration, :release_date, :lyrics, :title,
                                      :record_company, :publisher, :library_name, :language, :producer, 
                                      :recording_room, :mixer, :designer, :ar, :UPC, :arranger, :business,
-                                     melody_copies_attributes: [:name, :share, :begin_date, :end_date, :disctrit, :agreement_number],
-                                     lyric_copies_attributes: [:name, :share, :begin_date, :end_date, :disctrit, :agreement_number],
-                                     producer_copies_attributes: [:name, :share, :begin_date, :end_date, :disctrit, :agreement_number],
-                                     recording_copies_attributes: [:name, :share, :begin_date, :end_date, :disctrit, :agreement_number],
+                                     melody_copies_attributes: [:name, :share, :begin_date, :end_date, :district, :agreement_number],
+                                     lyric_copies_attributes: [:name, :share, :begin_date, :end_date, :district, :agreement_number],
+                                     producer_copies_attributes: [:name, :share, :begin_date, :end_date, :district, :agreement_number],
+                                     recording_copies_attributes: [:name, :share, :begin_date, :end_date, :district, :agreement_number],
                                      other_info_attributes: [:publish_platform, :priority, :remark]).tap do |whitelisted|
         if params[:artists].present?
           ids = params[:artists].map{|obj| obj["id"]}.compact
