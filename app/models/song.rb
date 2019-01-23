@@ -1,3 +1,4 @@
+require 'digest'
 class Song < ApplicationRecord
     # validates
     validates :title, presence: true
@@ -53,4 +54,12 @@ class Song < ApplicationRecord
 
     acts_as_taggable 
 
+    def attachment_url
+        u = "/" + self.audio_file.path
+        etime =  DateTime.now.to_i + 600
+        token = "polaris"
+        sign = Digest::MD5.hexdigest("#{token}&#{etime.to_s}&#{u}")
+        upt =  sign[12, 8] + etime.to_s
+        self.audio_file.url + "?_upt=#{upt}"
+    end
 end

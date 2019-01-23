@@ -11,7 +11,7 @@ json.artists @song.artists.map(&:name)
 json.artist_ids @song.artists.map(&:id)
 json.composers @song.composers
 json.lyricists @song.lyricists
-json.audioFile "http://#{@song.audio_file}"
+json.audioFile "http://#{@song.attachment_url}"
 json.ISRC @song.ISRC
 json.genre @song.genere_to_str
 json.length @song.duration
