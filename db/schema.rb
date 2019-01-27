@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_24_075712) do
+ActiveRecord::Schema.define(version: 2019_01_27_140227) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 2019_01_24_075712) do
     t.datetime "updated_at", null: false
     t.integer "creator_id"
     t.string "code"
+    t.string "cypher"
   end
 
   create_table "playlists_songs", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -172,7 +173,7 @@ ActiveRecord::Schema.define(version: 2019_01_24_075712) do
     t.integer "own_producer_copies", comment: "是否有表演者版权"
     t.integer "own_recording_copies", comment: "是否有录音版权"
     t.string "business", comment: "商业范围"
-    t.integer "classification", limit: 1, comment: "歌曲分类"
+    t.integer "classification", limit: 1, comment: "歌曲分类 1 正常 2 DEMO"
     t.index ["classification"], name: "index_songs_on_classification"
     t.index ["composers"], name: "index_songs_on_composers"
     t.index ["genre"], name: "index_songs_on_genre"
