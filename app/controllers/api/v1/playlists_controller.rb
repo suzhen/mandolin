@@ -20,7 +20,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   # GET /api/v1/playlists/1.json
   def show
     respond_to do |format|
-      if @playlist.code == playlist_params[:shared_code]
+      if @playlist.code == playlist_params[:shared_code] || @playlist.cypher == playlist_params[:shared_cypher]
         format.json { render :show, status: :ok, location: @api_v1_playlist }
       else
         format.json { render json: @playlist.errors, status: :unprocessable_entity }
@@ -60,6 +60,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       params.fetch(:playlist, {}).permit(:name, :introduction).tap do |whitelisted|
         whitelisted[:song_ids] = params[:song_ids] if params[:song_ids]
         whitelisted[:shared_code] = params[:shared_code] if params[:shared_code]
+        whitelisted[:shared_cypher] = params[:shared_cypher] if params[:shared_cypher]
       end
     end
 end
