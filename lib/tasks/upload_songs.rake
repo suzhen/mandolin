@@ -111,11 +111,13 @@ task :upload_demo => :environment do         #cmd 命令行中执行 rake study_
     num = 1
     traverse_dir("/Volumes/TPG Music/DEMO") do |file_path|
         song_basename = File.basename(file_path, ".mp3")
-        @song = Song.create(:title => song_name)
+        @song = Song.create(:title => song_basename)
+        @song.classification = 2
         File.open(file_path) do |f|
             @song.audio_file = f
         end
         Rails.logger.info "开始上传第#{num}首歌,歌名是《#{song_basename}》。"
+        @song.save
         num += 1
     end
     puts num
