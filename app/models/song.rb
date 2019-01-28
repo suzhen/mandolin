@@ -55,6 +55,7 @@ class Song < ApplicationRecord
     acts_as_taggable 
 
     def attachment_url
+        return "" unless self.audio_file.path.present?
         u = "/" + self.audio_file.path
         etime =  DateTime.now.to_i + 600
         token = "polaris"
