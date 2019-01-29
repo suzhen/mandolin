@@ -21,6 +21,8 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   def show
     respond_to do |format|
       if @playlist.code == playlist_params[:shared_code] || @playlist.cypher == playlist_params[:shared_cypher]
+        
+        @playlist.shared_field =  @playlist.code == playlist_params[:shared_code] ? "code" : "cypher"
         format.json { render :show, status: :ok, location: @api_v1_playlist }
       else
         format.json { render json: @playlist.errors, status: :unprocessable_entity }

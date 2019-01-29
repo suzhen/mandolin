@@ -1,4 +1,7 @@
 class Playlist < ApplicationRecord
+
+    attr_accessor :shared_field
+
     # validates
     validates :name, presence: true
 
