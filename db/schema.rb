@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_27_140227) do
+ActiveRecord::Schema.define(version: 2019_02_24_121719) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -42,6 +42,23 @@ ActiveRecord::Schema.define(version: 2019_01_27_140227) do
     t.string "name"
     t.integer "gender"
     t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "demos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", comment: "样本名称"
+    t.string "source", comment: "样本来源"
+    t.string "writers", comment: "样本来源"
+    t.date "year", comment: "样本年份"
+    t.string "mfd"
+    t.string "genres", comment: "流派"
+    t.string "notes", comment: "注解"
+    t.string "bpm"
+    t.string "pitched_artists"
+    t.string "hold_by"
+    t.string "cut_by"
+    t.string "audio_file"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
