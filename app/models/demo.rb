@@ -1,5 +1,57 @@
 require 'digest'
 class Demo < ApplicationRecord
+    # association
+    has_many :demoreferences
+    has_many :artists, through: :demoreferences do
+        def related_type(type)
+            where("related_type = ?", type)
+        end
+    end
+
+    def fetch_info(artist)
+        {"id": artist.id, "name": artist.name}
+    end
+
+    def hold_bies
+        self.artists.related_type("HOLD").map{ |artist| self.fetch_info(artist) }
+    end
+
+    def build_hold_bies(artists)
+        artists.each do |artist|
+            self.demoreferences.build(artist_id:artist, related_type:"HOLD")
+        end
+    end
+
+    def cut_bies
+        self.artists.related_type("CUT").map{ |artist| self.fetch_info(artist) }
+    end
+
+    def build_cut_bies(artists)
+        artists.each do |artist|
+            self.demoreferences.build(artist_id:artist, related_type:"CUT")
+        end
+    end
+
+    def writers
+        self.artists.related_type("WRITER").map{ |artist| self.fetch_info(artist) }
+    end
+
+    def build_writers(artists)
+        artists.each do |artist|
+            self.demoreferences.build(artist_id:artist, related_type:"WRITER")
+        end
+    end
+
+    def pitched_artists
+        self.artists.related_type("PITCHED").map{ |artist| self.fetch_info(artist) }
+    end
+
+    def build_pitched_artists(artists)
+        artists.each do |artist|
+            self.demoreferences.build(artist_id:artist, related_type:"PITCHED")
+        end
+    end
+
     # validates
     validates :title, presence: true
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_24_121719) do
+ActiveRecord::Schema.define(version: 2019_03_02_125746) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -44,6 +44,15 @@ ActiveRecord::Schema.define(version: 2019_02_24_121719) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "demoreferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "artist_id"
+    t.integer "demo_id"
+    t.string "related_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id", "demo_id"], name: "index_demoreferences_on_artist_id_and_demo_id"
   end
 
   create_table "demos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

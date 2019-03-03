@@ -9,8 +9,8 @@ json.mfd @demo.mfd
 json.notes @demo.notes 
 json.bpm @demo.bpm
 json.pitched_artists @demo.pitched_artists 
-json.hold_by @demo.hold_by
-json.cut_by @demo.cut_by
+json.hold_by @demo.hold_bies
+json.cut_by @demo.cut_bies
 
 json.tags @demo.tags do |tag|
     json.tagId tag.id

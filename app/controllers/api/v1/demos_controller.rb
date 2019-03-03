@@ -1,12 +1,82 @@
 class Api::V1::DemosController < ApplicationController
   before_action :set_demo, only: [:update, :show]
+    
   # PATCH/PUT /api/v1/demos/1
   # PATCH/PUT /api/v1/demos/1.json
   def update
-    puts api_v1_demo_params[:genres]
+    demo_params = {}
+    hold_by_ids = []
+    cut_by_ids = []
+    writer_ids = []
+    pitched_artist_ids = []
+    excepts = []
+    if api_v1_demo_params[:artist_names].present?
+      new_names = []
+      api_v1_demo_params[:artist_names].map{|obj| new_names+=obj[:names] }
+      new_names.uniq!
+      new_names.map!{|name| Artist.find_or_create_by(:name => name)}
+    
+      api_v1_demo_params[:artist_names].each do |obj|
+          if obj[:related_type] == "HOLD"
+            obj[:names].each do |name|
+              hold_by_ids << (new_names.detect {|artist| artist.name == name}).id
+            end
+          end
+          if obj[:related_type] == "CUT"
+            obj[:names].each do |name|
+              cut_by_ids << (new_names.detect {|artist| artist.name == name}).id
+            end
+          end
+          if obj[:related_type] == "WRITER"
+            obj[:names].each do |name|
+              writer_ids << (new_names.detect {|artist| artist.name == name}).id
+            end
+          end
+          if obj[:related_type] == "PITCHED"
+            obj[:names].each do |name|
+              pitched_artist_ids << (new_names.detect {|artist| artist.name == name}).id
+            end
+          end
+      end
+      excepts << "artist_names"
+    end
+    
+    if api_v1_demo_params[:hold_by_ids].present? 
+      hold_by_ids = hold_by_ids + api_v1_demo_params[:hold_by_ids]
+      excepts << "hold_by_ids"
+    end
+
+    if api_v1_demo_params[:cut_by_ids].present? 
+      cut_by_ids = cut_by_ids + api_v1_demo_params[:cut_by_ids]
+      excepts << "cut_by_ids"
+    end
+
+    if api_v1_demo_params[:writer_ids].present? 
+      writer_ids = writer_ids + api_v1_demo_params[:writer_ids]
+      excepts << "writer_ids"
+    end
+
+    if api_v1_demo_params[:pitched_artist_ids].present? 
+      pitched_artist_ids = pitched_artist_ids + api_v1_demo_params[:pitched_artist_ids]
+      excepts << "pitched_artist_ids"
+    end
+
+    demo_params = api_v1_demo_params.except(:temp)
+    excepts.map(&:to_sym).each do |e| 
+      demo_params = demo_params.except(e)
+    end
+
     respond_to do |format|
-      if @demo.update(api_v1_demo_params)
-        format.json { render :show, status: :ok, location: @api_v1_demo }
+      if @demo.update(demo_params)
+        @demo.build_hold_bies(hold_by_ids)
+        @demo.build_cut_bies(cut_by_ids)
+        @demo.build_writers(writer_ids)
+        @demo.build_pitched_artists(pitched_artist_ids)
+        if @demo.save
+          format.json { render :show, status: :ok, location: @api_v1_demo }
+        else
+          format.json { render json: @api_v1_demo.errors, status: :unprocessable_entity }
+        end
       else
         format.json { render json: @api_v1_demo.errors, status: :unprocessable_entity }
       end
@@ -36,6 +106,55 @@ class Api::V1::DemosController < ApplicationController
             if params[:genres].present?
                 whitelisted[:genres] = params[:genres].split(",").map{|cg| Genre.find_by(:chinese_name=>cg).code}.join(",")  
             end
+            new_artist_names = []
+            # HOLD_BY
+            if params[:hold_bies].present?
+              ids = params[:hold_bies].map{|obj| obj["id"]}.compact
+              new_names = params[:hold_bies].map{|obj| obj["name"] if obj["id"].blank? }.compact
+              if ids.present?
+                whitelisted[:hold_by_ids] = ids
+              end
+              if new_names.present?
+                new_artist_names << {related_type: "HOLD", names: new_names}
+              end
+            end
+            # CUT_BY
+            if params[:cut_bies].present?
+              ids = params[:cut_bies].map{|obj| obj["id"]}.compact
+              new_names = params[:cut_bies].map{|obj| obj["name"] if obj["id"].blank? }.compact
+              if ids.present?
+                whitelisted[:cut_by_ids] = ids
+              end
+              if new_names.present?
+                new_artist_names << {related_type: "CUT", names: new_names}
+              end
+            end
+            # WRITER
+            if params[:writers].present?
+              ids = params[:writers].map{|obj| obj["id"]}.compact
+              new_names = params[:writers].map{|obj| obj["name"] if obj["id"].blank? }.compact
+              if ids.present?
+                whitelisted[:writer_ids] = ids
+              end
+              if new_names.present?
+                new_artist_names << {related_type: "WRITER", names: new_names}
+              end
+            end
+            # PITCHED
+            if params[:pitched_artists].present?
+              ids = params[:pitched_artists].map{|obj| obj["id"]}.compact
+              new_names = params[:pitched_artists].map{|obj| obj["name"] if obj["id"].blank? }.compact
+              if ids.present?
+                whitelisted[:pitched_artist_ids] = ids
+              end
+              if new_names.present?
+                new_artist_names << {related_type: "PITCHED", names: new_names}
+              end
+            end
+            # 新的
+            unless new_artist_names.empty?
+              whitelisted[:artist_names] = new_artist_names
+            end 
         end                                
     end
 end
