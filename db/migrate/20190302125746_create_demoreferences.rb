@@ -1,4 +1,4 @@
-class CreateJoinTableDemosAndArtists < ActiveRecord::Migration[5.2]
+class CreateDemoreferences < ActiveRecord::Migration[5.2]
   def change
     create_table :demoreferences do |t|
       t.integer :artist_id
