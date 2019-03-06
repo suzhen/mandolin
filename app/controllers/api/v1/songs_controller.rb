@@ -1,5 +1,6 @@
+require "mp3info"
 class Api::V1::SongsController < Api::V1::BaseController
-  before_action :set_song, only: [:update, :show]
+  before_action :set_song, only: [:update, :show, :upload_audio_file]
 
   # # GET /api/v1/songs
   # # GET /api/v1/songs.json
@@ -24,18 +25,33 @@ class Api::V1::SongsController < Api::V1::BaseController
   # # POST /api/v1/songs
   # # POST /api/v1/songs.json
   # def create
-  #   @api_v1_song = Api::V1::Song.new(api_v1_song_params)
-
-  #   respond_to do |format|
-  #     if @api_v1_song.save
-  #       format.html { redirect_to @api_v1_song, notice: 'Song was successfully created.' }
-  #       format.json { render :show, status: :created, location: @api_v1_song }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @api_v1_song.errors, status: :unprocessable_entity }
-  #     end
-  #   end
+  #   @api_v1_song = Song.new(api_v1_song_params)
+    # respond_to do |format|
+    #   if @api_v1_song.save
+    #     format.html { redirect_to @api_v1_song, notice: 'Song was successfully created.' }
+    #     format.json { render :show, status: :created, location: @api_v1_song }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @api_v1_song.errors, status: :unprocessable_entity }
+    #   end
+    # end
   # end
+
+  # POST /api/v1/upsong.json?id=9723
+  # POST /api/v1/upsong.json?id=9723
+  # curl http://0.0.0.0:3050/api/v1/upsong\?id\=9723 -F "audio_file=@/Users/suzhen/Music/网易云音乐/suzhen_test.mp3" -v
+  def upload_audio_file
+    @song.audio_file = params["audio_file"]
+    path = Rails.root.join('public').to_s + @song.audio_file.to_s
+    @song.fill_out_info_from_file(path)
+    respond_to do |format|
+      if @song.save
+        format.json { render :show, status: :ok, location: @api_v1_song }
+      else
+        format.json { render json: @api_v1_song.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # PATCH/PUT /api/v1/songs/1
   # PATCH/PUT /api/v1/songs/1.json

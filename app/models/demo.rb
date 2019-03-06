@@ -73,4 +73,14 @@ class Demo < ApplicationRecord
         self.audio_file.url + "?_upt=#{upt}"
     end
 
+    def fill_out_info_from_file(mp3_path)
+        # Mp3Info.open(mp3_path) do |mp3info|
+        #     puts mp3info
+        #     puts mp3info.tag.title   
+        #     puts mp3info.tag.artist   
+        #     puts mp3info.tag.album
+        #     puts mp3info.tag.tracknum
+        # end
+    end
+
 end

@@ -322,6 +322,7 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
+    ruby-mp3info (0.8.10)
     ruby_dep (1.5.0)
     rubyzip (1.2.2)
     sass (3.7.2)
@@ -445,6 +446,7 @@ DEPENDENCIES
   regexp-examples
   roo (~> 2.7.0)
   rspec-rails
+  ruby-mp3info
   sass-rails (~> 5.0)
   selenium-webdriver
   simple_form

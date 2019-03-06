@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :playlists, only: [:show, :create, :update, :destroy]
       resources :demos, only: [:create, :update]
+      post "upsong", to: "songs#upload_audio_file"
+      post "updemo", to: "demos#upload_audio_file"
       resources :songs do
         resources :tags
         resources :melody_copies
