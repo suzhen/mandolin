@@ -1,7 +1,7 @@
 json.partial! "api_v1_demo", api_v1_demo: @demo
 
 json.title @demo.title
-json.genres @demo.genere_to_str
+json.genre @demo.genere_to_str
 json.source @demo.source 
 json.writers @demo.writers 
 json.year @demo.year

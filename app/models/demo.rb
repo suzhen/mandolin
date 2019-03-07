@@ -69,7 +69,7 @@ class Demo < ApplicationRecord
     validates :title, presence: true
 
     def genere_to_str
-        return self.genres.present? ? self.genres.split(",").map{|g| Genre.find_by(:code=>g).chinese_name } : ""
+        return self.genre.present? ? Genre.find_by(:code=>self.genre).chinese_name : ""
     end
 
     mount_uploader :audio_file, MusicUploader

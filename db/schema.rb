@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_02_125746) do
+ActiveRecord::Schema.define(version: 2019_03_07_103625) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -58,18 +58,15 @@ ActiveRecord::Schema.define(version: 2019_03_02_125746) do
   create_table "demos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", comment: "样本名称"
     t.string "source", comment: "样本来源"
-    t.string "writers", comment: "样本来源"
     t.date "year", comment: "样本年份"
     t.string "mfd"
-    t.string "genres", comment: "流派"
     t.string "notes", comment: "注解"
     t.string "bpm"
-    t.string "pitched_artists"
-    t.string "hold_by"
-    t.string "cut_by"
     t.string "audio_file"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "genre"
+    t.index ["title", "source", "mfd", "year", "bpm"], name: "index_demos_on_title_and_source_and_mfd_and_year_and_bpm"
   end
 
   create_table "dict_genres", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

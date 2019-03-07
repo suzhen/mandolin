@@ -118,10 +118,10 @@ class Api::V1::DemosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def api_v1_demo_params
-        params.fetch(:demo, {}).permit(:title, :tag_list, :genres, :source, :writers, :year,
+        params.fetch(:demo, {}).permit(:title, :tag_list, :genre, :source, :writers, :year,
                                      :mfd, :notes, :bpm, :pitched_artists, :hold_by, :cut_by).tap do |whitelisted|
-            if params[:genres].present?
-                whitelisted[:genres] = params[:genres].split(",").map{|cg| Genre.find_by(:chinese_name=>cg).code}.join(",")  
+            if params[:genre].present?
+                whitelisted[:genre] = Genre.find_by(:chinese_name=>cg).code
             end
             new_artist_names = []
             # HOLD_BY
