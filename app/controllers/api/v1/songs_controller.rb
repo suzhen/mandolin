@@ -1,6 +1,6 @@
 require "mp3info"
 class Api::V1::SongsController < Api::V1::BaseController
-  before_action :set_song, only: [:update, :show, :upload_audio_file]
+  before_action :set_song, only: [:update, :show]
 
   # # GET /api/v1/songs
   # # GET /api/v1/songs.json

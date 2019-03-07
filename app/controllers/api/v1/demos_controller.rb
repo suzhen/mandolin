@@ -1,5 +1,5 @@
 class Api::V1::DemosController < ApplicationController
-  before_action :set_demo, only: [:update, :show, :upload_audio_file]
+  before_action :set_demo, only: [:update, :show]
     
   # PATCH/PUT /api/v1/demos/1
   # PATCH/PUT /api/v1/demos/1.json
@@ -97,6 +97,7 @@ class Api::V1::DemosController < ApplicationController
   # POST /api/v1/updemo.json?id=1
   # curl http://0.0.0.0:3050/api/v1/updemo\?id\=1 -F "audio_file=@/Users/suzhen/Music/网易云音乐/suzhen_test.mp3" -v
   def upload_audio_file
+    @demo = Demo.new
     @demo.audio_file = params["audio_file"]
     path = Rails.root.join('public').to_s + @demo.audio_file.to_s
     @demo.fill_out_info_from_file(path)

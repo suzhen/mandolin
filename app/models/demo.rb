@@ -1,4 +1,5 @@
 require 'digest'
+require "mp3info"
 class Demo < ApplicationRecord
     # association
     has_many :demoreferences
@@ -17,6 +18,9 @@ class Demo < ApplicationRecord
     end
 
     def build_hold_bies(artists)
+        unless artists.empty?
+            self.demoreferences.where("related_type = 'HOLD'").destroy_all()
+        end
         artists.each do |artist|
             self.demoreferences.build(artist_id:artist, related_type:"HOLD")
         end
@@ -27,6 +31,9 @@ class Demo < ApplicationRecord
     end
 
     def build_cut_bies(artists)
+        unless artists.empty?
+            self.demoreferences.where("related_type = 'CUT'").destroy_all()
+        end
         artists.each do |artist|
             self.demoreferences.build(artist_id:artist, related_type:"CUT")
         end
@@ -37,6 +44,9 @@ class Demo < ApplicationRecord
     end
 
     def build_writers(artists)
+        unless artists.empty?
+            self.demoreferences.where("related_type = 'WRITER'").destroy_all()
+        end
         artists.each do |artist|
             self.demoreferences.build(artist_id:artist, related_type:"WRITER")
         end
@@ -47,6 +57,9 @@ class Demo < ApplicationRecord
     end
 
     def build_pitched_artists(artists)
+        unless artists.empty?
+            self.demoreferences.where("related_type = 'PITCHED'").destroy_all()
+        end
         artists.each do |artist|
             self.demoreferences.build(artist_id:artist, related_type:"PITCHED")
         end
@@ -74,13 +87,11 @@ class Demo < ApplicationRecord
     end
 
     def fill_out_info_from_file(mp3_path)
-        # Mp3Info.open(mp3_path) do |mp3info|
-        #     puts mp3info
-        #     puts mp3info.tag.title   
-        #     puts mp3info.tag.artist   
-        #     puts mp3info.tag.album
-        #     puts mp3info.tag.tracknum
-        # end
+        Mp3Info.open(mp3_path) do |mp3info|
+            self.bpm = mp3info.bitrate
+            self.title = mp3info.tag.title
+            self.genres = Genre.find_chinese_or_english_name(mp3info.tag.genre_s)
+        end
     end
 
 end

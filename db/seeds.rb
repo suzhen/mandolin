@@ -29,7 +29,8 @@
 #                  [30, '中国特色', 'Chinese Characteristic'], 
 #                  [31, '实验', 'Experimental'], 
 #                  [32, '儿童', 'Children'], 
-#                  [33, '有声书', 'Audio Book']] 
+#                  [33, '有声书', 'Audio Book'],
+#                  [34, '其它', 'Other']] 
 
 # genreOptions.each do |genre|
 #     Genre.create(:code=>genre[0], :chinese_name=>genre[1], :english_name=>genre[2])
