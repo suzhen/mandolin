@@ -87,11 +87,13 @@ class Demo < ApplicationRecord
     end
 
     def fill_out_info_from_file(mp3_path)
-        Mp3Info.open(mp3_path) do |mp3info|
-            self.bpm = mp3info.bitrate
-            self.title = mp3info.tag.title
-            self.genres = Genre.find_chinese_or_english_name(mp3info.tag.genre_s)
-        end
+        self.title = "tmp"
+        puts mp3_path
+        # Mp3Info.open(mp3_path) do |mp3info|
+        #     self.bpm = mp3info.bitrate
+        #     self.title = mp3info.tag.title
+        #     self.genres = Genre.find_chinese_or_english_name(mp3info.tag.genre_s)
+        # end
     end
 
 end
