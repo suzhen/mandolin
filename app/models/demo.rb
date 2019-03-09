@@ -9,6 +9,8 @@ class Demo < ApplicationRecord
         end
     end
 
+    has_many :playlist_assignments, :as => :playable
+
     def fetch_info(artist)
         {"id": artist.id, "name": artist.name}
     end

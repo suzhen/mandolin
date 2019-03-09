@@ -9,6 +9,19 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
     @playlist.creator = @current_user
     respond_to do |format|
       if @playlist.save
+        if params[:song_ids]
+          songs = []
+          params[:song_ids].each{|song_id| songs << Song.find_by(:id=>song_id)}
+          songs = songs.compact.reject(&:nil?)
+          songs.each{|song| song.playlist_assignments.create!(:playlist_id=>@playlist.id) }
+        end
+        
+        if params[:demo_ids]
+          demos = []
+          params[:demo_ids].map{|demo_id| demos << Demo.find_by(:id=>demo_id) }
+          demos.each{|demo| demo.playlist_assignments.create!(:playlist_id=>@playlist.id) }
+        end
+
         format.json { render :show, status: :created, location: @api_v1_playlist }
       else
         format.json { render json: @playlist.errors, status: :unprocessable_entity }
@@ -35,6 +48,23 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   def update
     respond_to do |format|
       if @playlist.update(playlist_params)
+        @playlist.playlist_assignments.destroy_all
+        if params[:song_ids]
+          songs = []
+          params[:song_ids].each{|song_id| songs << Song.find_by(:id=>song_id)}
+          songs = songs.compact.reject(&:nil?)
+          songs.each do |song| 
+            song.playlist_assignments.create!(:playlist_id=>@playlist.id)
+          end
+        end
+        
+        if params[:demo_ids]
+          demos = []
+          params[:demo_ids].map{|demo_id| demos << Demo.find_by(:id=>demo_id) }
+          demos.each do |demo| 
+            demo.playlist_assignments.create!(:playlist_id=>@playlist.id)
+          end
+        end
         format.json { render :show, status: :ok, location: @api_v1_playlist }
       else
         format.json { render json: @playlist.errors, status: :unprocessable_entity }
@@ -45,6 +75,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   # DELETE /api/v1/playlists/1
   # DELETE /api/v1/playlists/1.json
   def destroy
+    @playlist.playlist_assignments.destroy_all
     @playlist.destroy
     respond_to do |format|
       format.json { head :no_content }
@@ -60,7 +91,6 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
     # Never trust parameters from the scary internet, only allow the white list through.
     def playlist_params
       params.fetch(:playlist, {}).permit(:name, :introduction).tap do |whitelisted|
-        whitelisted[:song_ids] = params[:song_ids] if params[:song_ids]
         whitelisted[:shared_code] = params[:shared_code] if params[:shared_code]
       end
     end
