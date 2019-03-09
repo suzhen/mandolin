@@ -11,6 +11,7 @@ json.bpm @demo.bpm
 json.pitched_artists @demo.pitched_artists 
 json.hold_by @demo.hold_bies
 json.cut_by @demo.cut_bies
+json.audioFile @demo.audio_file
 
 json.tags @demo.tags do |tag|
     json.tagId tag.id
