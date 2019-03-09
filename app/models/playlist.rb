@@ -14,6 +14,15 @@ class Playlist < ApplicationRecord
 
     before_create :generate_code
 
+    def songs
+       self.playlist_assignments.where("playable_type = 'Song'").all.map{|pl| Song.find_by(:id=>pl.playable_id)}
+    end
+
+
+    def demos
+        self.playlist_assignments.where("playable_type = 'Demo'").all.map{|pl| Demo.find_by(:id=>pl.playable_id)}
+    end
+
     private
     def generate_code
         self.code = /[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]/.random_example()
