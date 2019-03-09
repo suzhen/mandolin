@@ -121,7 +121,7 @@ class Api::V1::DemosController < ApplicationController
         params.fetch(:demo, {}).permit(:title, :tag_list, :genre, :source, :writers, :year,
                                      :mfd, :notes, :bpm, :pitched_artists, :hold_by, :cut_by).tap do |whitelisted|
             if params[:genre].present?
-                whitelisted[:genre] = Genre.find_by(:chinese_name=>cg).code
+                whitelisted[:genre] = Genre.find_by(:chinese_name=>params[:genre]).code
             end
             new_artist_names = []
             # HOLD_BY
