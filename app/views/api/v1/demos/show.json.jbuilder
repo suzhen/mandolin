@@ -11,7 +11,7 @@ json.bpm @demo.bpm
 json.pitched_artists @demo.pitched_artists 
 json.hold_by @demo.hold_bies
 json.cut_by @demo.cut_bies
-json.audioFile @demo.audio_file
+json.audioFile @demo.attachment_url.present? ? "http://#{@demo.attachment_url}" : ""
 
 json.tags @demo.tags do |tag|
     json.tagId tag.id
