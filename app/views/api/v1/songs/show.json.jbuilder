@@ -1,5 +1,6 @@
 json.partial! "api_v1_song", api_v1_song: @song
 
+json.type "song"
 json.ID @song.id
 json.title @song.title
 json.album @song.albums.present? ? @song.albums[0].title : ""

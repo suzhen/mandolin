@@ -1,5 +1,6 @@
 json.partial! "api_v1_demo", api_v1_demo: @demo
 
+json.type "demo"
 json.title @demo.title
 json.genre @demo.genere_to_str
 json.source @demo.source 
