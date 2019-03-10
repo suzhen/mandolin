@@ -1,6 +1,6 @@
 json.partial! "api_v1_playlist", api_v1_playlist: @playlist
 json.songs @playlist.songs do |song|
-    jsong.type "song"
+    json.type "song"
     json.ID song.id
     json.title song.title
     json.audioFile "http://#{song.attachment_url}"
@@ -44,7 +44,7 @@ json.songs @playlist.songs do |song|
     end
 end
 json.demos @playlist.demos do |demo|
-    jsong.type "demo"
+    json.type "demo"
     json.title demo.title
     json.genre demo.genere_to_str
     json.source demo.source 
