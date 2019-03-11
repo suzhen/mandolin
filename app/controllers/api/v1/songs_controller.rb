@@ -1,6 +1,6 @@
 require "mp3info"
 class Api::V1::SongsController < Api::V1::BaseController
-  before_action :set_song, only: [:update, :show]
+  before_action :set_song, only: [:update, :show, :destroy]
 
   # # GET /api/v1/songs
   # # GET /api/v1/songs.json
@@ -145,15 +145,14 @@ class Api::V1::SongsController < Api::V1::BaseController
     end
   end
 
-  # # DELETE /api/v1/songs/1
-  # # DELETE /api/v1/songs/1.json
-  # def destroy
-  #   @api_v1_song.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to api_v1_songs_url, notice: 'Song was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
+  # DELETE /api/v1/songs/1
+  # DELETE /api/v1/songs/1.json
+  def destroy
+    @song.destroy
+    respond_to do |format|
+      format.json { head :no_content }
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

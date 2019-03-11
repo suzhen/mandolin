@@ -1,5 +1,5 @@
 class Api::V1::DemosController < ApplicationController
-  before_action :set_demo, only: [:update, :show]
+  before_action :set_demo, only: [:update, :show, :destroy]
     
   # PATCH/PUT /api/v1/demos/1
   # PATCH/PUT /api/v1/demos/1.json
@@ -83,15 +83,14 @@ class Api::V1::DemosController < ApplicationController
     end
   end
 
-  # # DELETE /api/v1/demos/1
-  # # DELETE /api/v1/demos/1.json
-  # def destroy
-  #   @api_v1_demo.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to api_v1_demos_url, notice: 'demo was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
+  # DELETE /api/v1/demos/1
+  # DELETE /api/v1/demos/1.json
+  def destroy
+    @demo.destroy
+    respond_to do |format|
+      format.json { head :no_content }
+    end
+  end
 
   # POST /api/v1/updemo.json?id=1
   # POST /api/v1/updemo.json?id=1
