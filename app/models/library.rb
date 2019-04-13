@@ -3,6 +3,7 @@ class Library < ApplicationRecord
     validates :name, presence: true
     # association
     has_many :library_assignments
+    has_many :contract_assignments, :as => :contractable
 
     def songs
         self.library_assignments.where("libraryable_type = 'Song'").all.map{|ly| Song.find_by(:id=>ly.libraryable_id)}

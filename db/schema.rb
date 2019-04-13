@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_13_055045) do
+ActiveRecord::Schema.define(version: 2019_04_13_084027) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -42,6 +42,35 @@ ActiveRecord::Schema.define(version: 2019_04_13_055045) do
     t.string "name"
     t.integer "gender"
     t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "contract_assignments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "contract_id"
+    t.integer "contractable_id"
+    t.string "contractable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "con_asg_conid_index"
+    t.index ["contractable_type", "contractable_id"], name: "con_asg_abletype_ableid_index"
+  end
+
+  create_table "contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "auth_party"
+    t.string "op_type"
+    t.decimal "auth_fee", precision: 10
+    t.integer "auth_duration"
+    t.string "payment_type"
+    t.string "auth_platform"
+    t.string "auth_location"
+    t.string "op_content"
+    t.string "song_count"
+    t.string "list_type"
+    t.string "auth_type"
+    t.boolean "is_shared"
+    t.text "auth_bussiness"
+    t.text "extend_terms"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

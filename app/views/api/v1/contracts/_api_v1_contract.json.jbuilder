@@ -1,0 +1,1 @@
+json.extract! api_v1_contract, :id, :auth_party, :op_type, :auth_fee, :auth_duration, :payment_type, :auth_platform, :auth_location, :op_content, :song_count, :list_type, :auth_type, :is_shared, :auth_bussiness, :extend_terms, :created_at, :updated_at
