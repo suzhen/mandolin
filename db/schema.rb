@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_09_154455) do
+ActiveRecord::Schema.define(version: 2019_04_13_055045) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -73,6 +73,22 @@ ActiveRecord::Schema.define(version: 2019_03_09_154455) do
     t.integer "code"
     t.string "chinese_name"
     t.string "english_name"
+  end
+
+  create_table "libraries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "library_assignments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "library_id"
+    t.integer "libraryable_id"
+    t.string "libraryable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["library_id"], name: "index_library_assignments_on_library_id"
+    t.index ["libraryable_type", "libraryable_id"], name: "index_library_assignments_on_libraryable_type_and_libraryable_id"
   end
 
   create_table "lyric_copies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

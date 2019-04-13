@@ -10,6 +10,7 @@ class Song < ApplicationRecord
     has_and_belongs_to_many :albums, join_table: :albums_songs
     has_and_belongs_to_many :artists, join_table: :artist_songs
     has_many :playlist_assignments, :as => :playable
+    has_many :library_assignments, :as => :libraryable
 
     has_many :melody_copies, :dependent => :destroy
     accepts_nested_attributes_for :melody_copies
