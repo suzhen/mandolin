@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_13_084027) do
+ActiveRecord::Schema.define(version: 2019_04_13_145705) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -68,11 +68,13 @@ ActiveRecord::Schema.define(version: 2019_04_13_084027) do
     t.string "song_count"
     t.string "list_type"
     t.string "auth_type"
-    t.boolean "is_shared"
+    t.string "is_shared"
     t.text "auth_bussiness"
     t.text "extend_terms"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "contract_type"
+    t.string "label"
   end
 
   create_table "demoreferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
