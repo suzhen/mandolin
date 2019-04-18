@@ -99,7 +99,6 @@ class Demo < ApplicationRecord
             rescue
                 self.genre = 32  
             end
-            
         end
     end
 

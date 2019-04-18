@@ -102,9 +102,9 @@ class Api::V1::DemosController < ApplicationController
     @demo.fill_out_info_from_file(path)
     respond_to do |format|
       if @demo.save
-        format.json { render :show, status: :ok, location: @api_v1_demo }
+        format.json { render :show, status: :ok, location: @demo}
       else
-        format.json { render json: @api_v1_demo.errors, status: :unprocessable_entity }
+        format.json { render json: @demo.errors, status: :unprocessable_entity }
       end
     end
   end
