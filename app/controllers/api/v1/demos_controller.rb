@@ -100,6 +100,7 @@ class Api::V1::DemosController < ApplicationController
     @demo.audio_file = params["audio_file"]
     path = Rails.root.join('public').to_s + @demo.audio_file.to_s
     @demo.fill_out_info_from_file(path)
+    puts @demo
     respond_to do |format|
       if @demo.save
         format.json { render :show, status: :ok, location: @demo}
