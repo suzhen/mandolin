@@ -95,9 +95,9 @@ class Demo < ApplicationRecord
             self.bpm = mp3info.bitrate
             self.title = mp3info.tag.title
             begin
-                self.genres = Genre.find_chinese_or_english_name(mp3info.tag.genre_s)    
+                self.genre = Genre.find_chinese_or_english_name(mp3info.tag.genre_s)    
             rescue
-                self.genres = 32  
+                self.genre = 32  
             end
             
         end
