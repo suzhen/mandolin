@@ -96,14 +96,15 @@ class Api::V1::DemosController < ApplicationController
   # POST /api/v1/updemo.json?id=1
   # curl http://0.0.0.0:3050/api/v1/updemo\?id\=1 -F "audio_file=@/Users/suzhen/Music/网易云音乐/suzhen_test.mp3" -v
   def upload_audio_file
-    @demo = Demo.new
-    @demo.audio_file = params["audio_file"]
-    path = Rails.root.join('public').to_s + @demo.audio_file.to_s
-    @demo.fill_out_info_from_file(path)
-    logger.info @demo
+    @api_v1_demo = Demo.new
+    @api_v1_demo.audio_file = params["audio_file"]
+    path = Rails.root.join('public').to_s + @api_v1_demo.audio_file.to_s
+    @api_v1_demo.fill_out_info_from_file(path)
+    logger.info "******"
+    logger.info @api_v1_demo.title
     respond_to do |format|
-      if @demo.save
-        format.json { render :show, status: :ok, location: @demo}
+      if @api_v1_demo.save
+        format.json { render :show, status: :ok, location: @api_v1_demo}
       else
         format.json { render json: @demo.errors, status: :unprocessable_entity }
       end
