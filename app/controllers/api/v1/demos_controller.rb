@@ -100,9 +100,7 @@ class Api::V1::DemosController < ApplicationController
     @api_v1_demo.audio_file = params["audio_file"]
     path = Rails.root.join('public').to_s + @api_v1_demo.audio_file.to_s
     @api_v1_demo.fill_out_info_from_file(path)
-    logger.info "******"
-    logger.info File.basename(path, ".*")
-    # @api_v1_demo.title = params   unless @api_v1_demo.title.present?
+    @api_v1_demo.title = File.basename(path, ".*") unless @api_v1_demo.title.present?
     respond_to do |format|
       if @api_v1_demo.save
         format.json { render :show, status: :ok, location: @api_v1_demo}
