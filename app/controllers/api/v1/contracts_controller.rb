@@ -67,8 +67,8 @@ class Api::V1::ContractsController < ApplicationController
         if params[:library_ids].present?
             libraries = []
             params[:library_ids].map{|library_id| libraries << Library.find_by(:id=>library_id) }
-            demos.each do |demo| 
-                demo.contract_assignments.create!(:contract_id=>@contract.id)
+            libraries.each do |lib| 
+                lib.contract_assignments.create!(:contract_id=>@contract.id)
             end
         end
         format.json { render :show, status: :ok, location: @api_v1_contract }
