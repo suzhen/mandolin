@@ -7,14 +7,14 @@ class Api::V1::LibrariesController < ApplicationController
     @library = Library.new(library_params)
     respond_to do |format|
       if @library.save
-        if params[:song_ids]
+        if params[:song_ids].present?
           songs = []
           params[:song_ids].each{|song_id| songs << Song.find_by(:id=>song_id)}
           songs = songs.compact.reject(&:nil?)
           songs.each{|song| song.library_assignments.create!(:library_id=>@library.id) }
         end
         
-        if params[:demo_ids]
+        if params[:demo_ids].present?
           demos = []
           params[:demo_ids].map{|demo_id| demos << Demo.find_by(:id=>demo_id) }
           demos.each{|demo| demo.library_assignments.create!(:library_id=>@library.id) }
@@ -41,7 +41,7 @@ class Api::V1::LibrariesController < ApplicationController
     respond_to do |format|
       if @library.update(library_params)
         @library.library_assignments.destroy_all
-        if params[:song_ids]
+        if params[:song_ids].present?
           songs = []
           params[:song_ids].each{|song_id| songs << Song.find_by(:id=>song_id)}
           songs = songs.compact.reject(&:nil?)
@@ -50,7 +50,7 @@ class Api::V1::LibrariesController < ApplicationController
           end
         end
         
-        if params[:demo_ids]
+        if params[:demo_ids].present?
           demos = []
           params[:demo_ids].map{|demo_id| demos << Demo.find_by(:id=>demo_id) }
           demos.each do |demo| 

@@ -7,20 +7,20 @@ class Api::V1::ContractsController < ApplicationController
     @contract = Contract.new(contract_params)
     respond_to do |format|
       if @contract.save
-        if params[:song_ids]
+        if params[:song_ids].present?
           songs = []
           params[:song_ids].each{|song_id| songs << Song.find_by(:id=>song_id)}
           songs = songs.compact.reject(&:nil?)
           songs.each{|song| song.contract_assignments.create!(:contract_id=>@contract.id) }
         end
         
-        if params[:demo_ids]
+        if params[:demo_ids].present?
           demos = []
           params[:demo_ids].map{|demo_id| demos << Demo.find_by(:id=>demo_id) }
           demos.each{|demo| demo.contract_assignments.create!(:contract_id=>@contract.id) }
         end
 
-        if params[:library_ids]
+        if params[:library_ids].present?
             libraries = []
             params[:library_ids].map{|library_id| libraries << Library.find_by(:id=>library_id) }
             libraries.each{|library| library.contract_assignments.create!(:contract_id=>@contract.id) }
@@ -47,7 +47,7 @@ class Api::V1::ContractsController < ApplicationController
     respond_to do |format|
       if @contract.update(contract_params)
         @contract.contract_assignments.destroy_all
-        if params[:song_ids]
+        if params[:song_ids].present?
           songs = []
           params[:song_ids].each{|song_id| songs << Song.find_by(:id=>song_id)}
           songs = songs.compact.reject(&:nil?)
@@ -56,7 +56,7 @@ class Api::V1::ContractsController < ApplicationController
           end
         end
         
-        if params[:demo_ids]
+        if params[:demo_ids].present?
           demos = []
           params[:demo_ids].map{|demo_id| demos << Demo.find_by(:id=>demo_id) }
           demos.each do |demo| 
@@ -64,7 +64,7 @@ class Api::V1::ContractsController < ApplicationController
           end
         end
 
-        if params[:library_ids]
+        if params[:library_ids].present?
             libraries = []
             params[:library_ids].map{|library_id| libraries << Library.find_by(:id=>library_id) }
             demos.each do |demo| 
