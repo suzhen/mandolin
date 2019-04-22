@@ -99,8 +99,9 @@ class Api::V1::DemosController < ApplicationController
     @api_v1_demo = Demo.new
     @api_v1_demo.audio_file = params["audio_file"]
     path = Rails.root.join('public').to_s + @api_v1_demo.audio_file.to_s
+    path = path.gsub(File.basename(path, ".*"), File.basename(params["audio_file"].original_filename, ".*"))
     logger.info "*******************"
-    logger.info params["audio_file"].original_filename
+    logger.info path
     @api_v1_demo.fill_out_info_from_file(path)
     respond_to do |format|
       if @api_v1_demo.save
