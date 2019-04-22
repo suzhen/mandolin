@@ -91,14 +91,15 @@ class Demo < ApplicationRecord
     end
 
     def fill_out_info_from_file(mp3_path)
-        Mp3Info.open(mp3_path) do |mp3info|
-            self.bpm = mp3info.bitrate
-            self.title = mp3info.tag.title
-            begin
+        begin
+            Mp3Info.open(mp3_path) do |mp3info|
+                self.bpm = mp3info.bitrate
+                self.title = mp3info.tag.title
                 self.genre = Genre.find_chinese_or_english_name(mp3info.tag.genre_s)    
-            rescue
-                self.genre = 32  
             end
+        rescue
+            self.title = File.basename(mp3_path, ".*") unless self.title.present?
+            self.genre = 32 unless self.genre.present? 
         end
     end
 
