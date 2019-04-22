@@ -91,6 +91,7 @@ class Demo < ApplicationRecord
     end
 
     def fill_out_info_from_file(mp3_path)
+        logger.info mp3_path
         begin
             Mp3Info.open(mp3_path) do |mp3info|
                 self.bpm = mp3info.bitrate
