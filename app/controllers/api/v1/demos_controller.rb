@@ -108,7 +108,8 @@ class Api::V1::DemosController < ApplicationController
         format.json { render :show, status: :ok, location: @api_v1_demo}
       else
         logger.info "&&&&&&&"
-        logger.info @api_v1_demo.errors
+        logger.info @api_v1_demo.title
+        logger.info @api_v1_demo.errors.to_s
         format.json { render json: @api_v1_demo.errors, status: :unprocessable_entity }
       end
     end
