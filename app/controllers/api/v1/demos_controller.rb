@@ -100,14 +100,12 @@ class Api::V1::DemosController < ApplicationController
     @api_v1_demo.audio_file = params["audio_file"]
     path = Rails.root.join('public').to_s + @api_v1_demo.audio_file.to_s
     path = path.gsub(File.basename(path, ".*"), File.basename(params["audio_file"].original_filename, ".*"))
-    logger.info "*******************"
-    logger.info path
     @api_v1_demo.fill_out_info_from_file(path)
     respond_to do |format|
       if @api_v1_demo.save
         format.json { render :show, status: :ok, location: @api_v1_demo}
       else
-        format.json { render json: @demo.errors, status: :unprocessable_entity }
+        format.json { render json: @api_v1_demo.errors, status: :unprocessable_entity }
       end
     end
   end
