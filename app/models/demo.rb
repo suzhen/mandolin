@@ -95,11 +95,13 @@ class Demo < ApplicationRecord
             Mp3Info.open(mp3_path) do |mp3info|
                 self.bpm = mp3info.bitrate
                 self.title = mp3info.tag.title
-                self.genre = Genre.find_chinese_or_english_name(mp3info.tag.genre_s)    
+                self.title = File.basename(mp3_path, ".*") unless self.title.present?
+                self.genre = Genre.find_chinese_or_english_name(mp3info.tag.genre_s)
+                self.genre = 32 unless self.genre.present?
             end
         rescue
-            self.title = File.basename(mp3_path, ".*") unless self.title.present?
-            self.genre = 32 unless self.genre.present? 
+            self.title = File.basename(mp3_path, ".*")
+            self.genre = 32
         end
     end
 
