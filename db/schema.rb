@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_13_145705) do
+ActiveRecord::Schema.define(version: 2019_04_23_080523) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -60,11 +60,11 @@ ActiveRecord::Schema.define(version: 2019_04_13_145705) do
     t.string "auth_party"
     t.string "op_type"
     t.decimal "auth_fee", precision: 10
-    t.integer "auth_duration"
-    t.string "payment_type"
+    t.text "auth_duration"
+    t.text "payment_type"
     t.string "auth_platform"
     t.string "auth_location"
-    t.string "op_content"
+    t.text "op_content"
     t.string "song_count"
     t.string "list_type"
     t.string "auth_type"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2019_04_13_145705) do
     t.datetime "updated_at", null: false
     t.string "contract_type"
     t.string "label"
+    t.text "notes"
   end
 
   create_table "demoreferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
