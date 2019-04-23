@@ -26,7 +26,7 @@ class Api::V1::ContractsController < ApplicationController
             libraries.each{|library| library.contract_assignments.create!(:contract_id=>@contract.id) }
         end
 
-        format.json { render :show, status: :created, location: @contract }
+        format.json { render :show, status: :created, location: @api_v1_contract }
       else
         format.json { render json: @contract.errors, status: :unprocessable_entity }
       end
@@ -71,7 +71,7 @@ class Api::V1::ContractsController < ApplicationController
                 lib.contract_assignments.create!(:contract_id=>@contract.id)
             end
         end
-        format.json { render :show, status: :ok, location: @contract }
+        format.json { render :show, status: :ok, location: @api_v1_contract }
       else
         format.json { render json: @contract.errors, status: :unprocessable_entity }
       end
