@@ -40,4 +40,6 @@
 
 # User.create(:email => "admin@nandor.cn", :password => "superadmin" )
 
-User.create(:email => "szhuo@tpgchinamusic.com", :password => "P@55w0rd" )
+# User.create(:email => "szhuo@tpgchinamusic.com", :password => "P@55w0rd" )
+
+User.create(:email => "hye@tpgchinamusic.com", :password => "P@55w0rd" )
