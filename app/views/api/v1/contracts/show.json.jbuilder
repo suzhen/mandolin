@@ -1,6 +1,7 @@
 json.partial! "api_v1_contract", api_v1_contract: @contract
 json.ID @contract.id
 json.song_ids @contract.songs.map(&:id)
+json.song_names @contract.songs.map(&:title)
 json.demo_ids @contract.demos.map(&:id)
 json.library_ids @contract.libraries.map(&:id)
 json.library_names @contract.libraries.map(&:name)
