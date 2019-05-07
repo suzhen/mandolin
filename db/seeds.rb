@@ -42,4 +42,7 @@
 
 # User.create(:email => "szhuo@tpgchinamusic.com", :password => "P@55w0rd" )
 
-User.create(:email => "hye@tpgchinamusic.com", :password => "P@55w0rd" )
+# User.create(:email => "hye@tpgchinamusic.com", :password => "P@55w0rd" )
+
+pl = Playlist.find_by(:id=>47)
+Song.all.each{|song| song.playlist_assignments.create!(:playlist_id=>pl.id)}
