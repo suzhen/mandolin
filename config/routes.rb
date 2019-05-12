@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       resources :demos, only: [:create, :update, :destroy]
       post "upsong", to: "songs#upload_audio_file"
       post "updemo", to: "demos#upload_audio_file"
+      post "upcert", to: "songs#upload_cert_file"
+      post "uplicence", to: "songs#upload_licence_file"
       resources :songs do
         resources :tags
         resources :melody_copies

@@ -1,6 +1,6 @@
 require "mp3info"
 class Api::V1::SongsController < Api::V1::BaseController
-  before_action :set_song, only: [:update, :show, :destroy]
+  before_action :set_song, only: [:update, :show, :destroy, :upload_audio_file, :upload_cert_file, :upload_licence_file]
 
   # # GET /api/v1/songs
   # # GET /api/v1/songs.json
@@ -38,7 +38,6 @@ class Api::V1::SongsController < Api::V1::BaseController
   # end
 
   # POST /api/v1/upsong.json?id=9723
-  # POST /api/v1/upsong.json?id=9723
   # curl http://0.0.0.0:3050/api/v1/upsong\?id\=9723 -F "audio_file=@/Users/suzhen/Music/网易云音乐/suzhen_test.mp3" -v
   def upload_audio_file
     @song.audio_file = params["audio_file"]
@@ -52,6 +51,51 @@ class Api::V1::SongsController < Api::V1::BaseController
       end
     end
   end
+
+  # POST /api/v1/upcert.json?id=478
+  # curl http://0.0.0.0:3050/api/v1/upcert\?id\=478 -F "composer_cert=@/Users/suzhen/Desktop/ESLPod_0001_Guide.pdf" -v
+  # curl http://0.0.0.0:3050/api/v1/upcert\?id\=478 -F "lyricist_cert=@/Users/suzhen/Desktop/ESLPod_0001_Guide.pdf" -v
+  # curl http://0.0.0.0:3050/api/v1/upcert\?id\=478 -F "performer_cert=@/Users/suzhen/Desktop/ESLPod_0001_Guide.pdf" -v
+  # curl http://0.0.0.0:3050/api/v1/upcert\?id\=478 -F "producer_cert=@/Users/suzhen/Desktop/ESLPod_0001_Guide.pdf" -v
+  def upload_cert_file
+    if params["composer_cert"].present?
+        @song.composer_cert = params["composer_cert"]
+    end
+    if params["lyricist_cert"].present?
+        @song.lyricist_cert = params["lyricist_cert"]
+    end
+    if params["performer_cert"].present?
+        @song.performer_cert = params["performer_cert"]
+    end
+    if params["producer_cert"].present?
+        @song.producer_cert = params["producer_cert"]
+    end
+    respond_to do |format|
+      if @song.save
+        format.json { render :show, status: :ok, location: @api_v1_song }
+      else
+        format.json { render json: @api_v1_song.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST /api/v1/uplicence.json?id=9723
+  # curl http://0.0.0.0:3050/api/v1/uplicence\?id\=478 -F "licence=@/Users/suzhen/Desktop/ESLPod_0001_Guide.pdf" -v
+  def upload_licence_file
+    @song.licence = params["licence"]
+    respond_to do |format|
+      if @song.save
+        format.json { render :show, status: :ok, location: @api_v1_song }
+      else
+        format.json { render json: @api_v1_song.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
+
+
+
 
   # PATCH/PUT /api/v1/songs/1
   # PATCH/PUT /api/v1/songs/1.json

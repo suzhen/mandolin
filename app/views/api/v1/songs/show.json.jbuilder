@@ -12,7 +12,7 @@ json.artists @song.artists.map(&:name)
 json.artist_ids @song.artists.map(&:id)
 json.composers @song.composers
 json.lyricists @song.lyricists
-json.audioFile @song.attachment_url.present? ? "http://#{@song.attachment_url}" : ""
+json.audioFile @song.attachment_url("AUDIOFILE").present? ? "http://#{@song.attachment_url("AUDIOFILE")}" : ""
 json.ISRC @song.ISRC
 json.genre @song.genere_to_str
 json.length @song.duration
@@ -73,3 +73,8 @@ json.tags @song.tags do |tag|
     json.tagName tag.name
     json.tagCount tag.taggings_count
 end
+json.licence @song.attachment_url("LICENCE").present? ? "http://#{@song.attachment_url("LICENCE")}" : ""
+json.lyricist_cert @song.attachment_url("LYRICISTCERT").present? ? "http://#{@song.attachment_url("LYRICISTCERT")}" : ""
+json.composer_cert @song.attachment_url("COMPOSERCERT").present? ? "http://#{@song.attachment_url("COMPOSERCERT")}" : ""
+json.performer_cert @song.attachment_url("PERFORMERCERT").present? ? "http://#{@song.attachment_url("PERFORMERCERT")}" : ""
+json.producer_cert @song.attachment_url("PRODUCERCERT").present? ? "http://#{@song.attachment_url("PRODUCERCERT")}" : ""

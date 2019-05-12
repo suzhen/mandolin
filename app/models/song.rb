@@ -54,17 +54,44 @@ class Song < ApplicationRecord
     end
 
     mount_uploader :audio_file, MusicUploader
+    mount_uploader :composer_cert, CertUploader
+    mount_uploader :lyricist_cert, CertUploader
+    mount_uploader :performer_cert, CertUploader
+    mount_uploader :producer_cert, CertUploader
+    mount_uploader :licence, LicenseUploader
 
     acts_as_taggable 
 
-    def attachment_url
-        return "" unless self.audio_file.path.present?
-        u = "/" + self.audio_file.path
-        etime =  DateTime.now.to_i + 600
+    def encode_url(path)
+        u = "/" + path
+        etime =  DateTime.now.to_i + 900
         token = "polaris"
         sign = Digest::MD5.hexdigest("#{token}&#{etime.to_s}&#{u}")
         upt =  sign[12, 8] + etime.to_s
-        self.audio_file.url + "?_upt=#{upt}"
+        "?_upt=#{upt}"
+    end
+        
+
+    def attachment_url(type)
+        if type == "AUDIOFILE"
+            return self.audio_file.path.present? ? self.audio_file.url + self.encode_url(self.audio_file.path) : ""
+        end
+        if type == "LYRICISTCERT"
+            return self.lyricist_cert.path.present? ? self.lyricist_cert.url + self.encode_url(self.lyricist_cert.path) : ""
+        end
+        if type == "COMPOSERCERT"
+            return self.composer_cert.path.present? ? self.composer_cert.url + self.encode_url(self.composer_cert.path) : ""
+        end
+        if type == "PERFORMERCERT"
+            return self.performer_cert.path.present? ? self.performer_cert.url + self.encode_url(self.performer_cert.path) : ""
+        end
+        if type == "PRODUCERCERT"
+            return self.producer_cert.path.present? ? self.producer_cert.url + self.encode_url(self.producer_cert.path) : ""
+        end
+        if type == "LICENCE"
+            return self.licence.path.present? ? self.licence.url + self.encode_url(self.licence.path) : ""
+        end
+        return ""
     end
 
 
