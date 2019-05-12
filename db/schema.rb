@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_12_072201) do
+ActiveRecord::Schema.define(version: 2019_05_12_151940) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -76,6 +76,8 @@ ActiveRecord::Schema.define(version: 2019_05_12_072201) do
     t.string "contract_type"
     t.string "label"
     t.text "notes"
+    t.string "attachment_pdf"
+    t.string "attachment_doc"
   end
 
   create_table "demoreferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

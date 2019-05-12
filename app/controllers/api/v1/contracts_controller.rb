@@ -1,5 +1,5 @@
 class Api::V1::ContractsController < ApplicationController
-  before_action :set_contract, only: [:show, :update, :destroy]
+  before_action :set_contract, only: [:show, :update, :destroy, :upload_pdf_file, :upload_doc_file]
 
   # POST /api/v1/contracts
   # POST /api/v1/contracts.json
@@ -87,6 +87,39 @@ class Api::V1::ContractsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  # POST /api/v1/upcontractpdf.json?id=9723
+  # curl http://0.0.0.0:3050/api/v1/upcontractpdf\?id\=478 -F "attachment_pdf=@/Users/suzhen/Desktop/ESLPod_0001_Guide.pdf" -v
+  def upload_pdf_file
+    @contract.attachment_pdf = params["attachment_pdf"]
+    respond_to do |format|
+      if @contract.save
+        format.json { render :show, status: :ok, location: @api_v1_contract }
+      else
+        format.json { render json: @api_v1_contract.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
+  # POST /api/v1/upcontractdoc.json?id=9723
+  # curl http://0.0.0.0:3050/api/v1/upcontractdoc\?id\=478 -F "attachment_doc=@/Users/suzhen/Desktop/ESLPod_0001_Guide.doc" -v
+  def upload_doc_file
+    @contract.attachment_doc = params["attachment_doc"]
+    respond_to do |format|
+      if @contract.save
+        format.json { render :show, status: :ok, location: @api_v1_contract }
+      else
+        format.json { render json: @api_v1_contract.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
+
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

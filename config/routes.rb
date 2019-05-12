@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       post "updemo", to: "demos#upload_audio_file"
       post "upcert", to: "songs#upload_cert_file"
       post "uplicence", to: "songs#upload_licence_file"
+      post "upcontractpdf", to: "contracts#upload_pdf_file"
+      post "upcontractdoc", to: "contracts#upload_doc_file"
       resources :songs do
         resources :tags
         resources :melody_copies

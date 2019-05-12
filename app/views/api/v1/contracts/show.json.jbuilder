@@ -5,6 +5,8 @@ json.song_names @contract.songs.map(&:title)
 json.demo_ids @contract.demos.map(&:id)
 json.library_ids @contract.libraries.map(&:id)
 json.library_names @contract.libraries.map(&:name)
+json.attachment_pdf @contract.attachment_url("PDF").present? ? "http://#{@contract.attachment_url("PDF")}" : ""
+json.attachment_doc @contract.attachment_url("DOC").present? ? "http://#{@contract.attachment_url("DOC")}" : ""
 # json.songs @contract.songs do |song|
 #     json.type "song"
 #     json.ID song.id
