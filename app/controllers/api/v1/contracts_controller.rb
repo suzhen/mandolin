@@ -116,11 +116,6 @@ class Api::V1::ContractsController < ApplicationController
     end
   end
 
-
-
-
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contract
@@ -129,6 +124,6 @@ class Api::V1::ContractsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contract_params
-      params.fetch(:contract, {}).permit(:auth_party, :op_type, :auth_fee, :auth_duration, :payment_type, :auth_platform, :auth_location, :op_content, :song_count, :list_type, :auth_type, :is_shared, :auth_bussiness, :extend_terms, :contract_type, :label, :notes)
+      params.fetch(:contract, {}).permit(:auth_party, :op_type, :auth_fee, :auth_duration, :payment_type, :auth_platform, :auth_location, :song_count, :list_type, :auth_type, :is_shared, :auth_bussiness, :extend_terms, :contract_type, :notes, :name, :time_limit, :expire_date, :auth_right)
     end
 end
