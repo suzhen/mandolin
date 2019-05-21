@@ -30,6 +30,9 @@ json.UPC @song.UPC
 json.arranger @song.arranger
 json.business @song.business
 json.publish_platform @song.other_info.nil? ? "" : @song.other_info.publish_platform
+json.platform_authorization_expire @song.other_info.nil? ? "" : @song.other_info.platform_authorization_expire
+json.exclusive_authorization_expire @song.other_info.nil? ? "" : @song.other_info.exclusive_authorization_expire
+json.edition @song.other_info.nil? ? "" : @song.other_info.edition
 json.priority @song.other_info.nil? ? "" : @song.other_info.priority
 json.remark @song.other_info.nil? ? "" : @song.other_info.remark
 json.copyrights do

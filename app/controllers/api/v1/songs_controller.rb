@@ -209,7 +209,7 @@ class Api::V1::SongsController < Api::V1::BaseController
                                      lyric_copies_attributes: [:name, :share, :begin_date, :end_date, :district, :agreement_number],
                                      producer_copies_attributes: [:name, :share, :begin_date, :end_date, :district, :agreement_number],
                                      recording_copies_attributes: [:name, :share, :begin_date, :end_date, :district, :agreement_number],
-                                     other_info_attributes: [:publish_platform, :priority, :remark]).tap do |whitelisted|
+                                     other_info_attributes: [:publish_platform, :priority, :platform_authorization_expire, :exclusive_authorization_expire, :edition, :remark]).tap do |whitelisted|
         if params[:artists].present?
           ids = params[:artists].map{|obj| obj["id"]}.compact
           new_names = params[:artists].map{|obj| obj["name"] if obj["id"].blank? }.compact
