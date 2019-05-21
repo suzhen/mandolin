@@ -92,11 +92,6 @@ class Api::V1::SongsController < Api::V1::BaseController
     end
   end
 
-
-
-
-
-
   # PATCH/PUT /api/v1/songs/1
   # PATCH/PUT /api/v1/songs/1.json
   def update
@@ -158,19 +153,19 @@ class Api::V1::SongsController < Api::V1::BaseController
       song_params[:genre] = @genre.code
     end
     
-    if song_params[:lyric_copies_attributes].present?
+    if !song_params[:lyric_copies_attributes].nil?
       @song.lyric_copies.destroy_all
     end
 
-    if song_params[:melody_copies_attributes].present?
+    if !song_params[:melody_copies_attributes].nil?
       @song.melody_copies.destroy_all
     end
 
-    if song_params[:producer_copies_attributes].present?
+    if !song_params[:producer_copies_attributes].nil?
       @song.producer_copies.destroy_all
     end
     
-    if song_params[:recording_copies_attributes].present?
+    if !song_params[:recording_copies_attributes].nil?
       @song.recording_copies.destroy_all
     end
 
