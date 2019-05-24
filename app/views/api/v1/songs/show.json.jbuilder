@@ -71,11 +71,12 @@ json.copyrights do
         json.agreement_number recording_copy.agreement_number
     end
 end
-json.tags @song.tags do |tag|
-    json.tagId tag.id
-    json.tagName tag.name
-    json.tagCount tag.taggings_count
-end
+json.tags @song.tags.map(&:name)
+# json.tags @song.tags do |tag|
+#     json.tagId tag.id
+#     json.tagName tag.name
+#     json.tagCount tag.taggings_count
+# end
 json.licence @song.attachment_url("LICENCE").present? ? "http://#{@song.attachment_url("LICENCE")}" : ""
 json.lyricist_cert @song.attachment_url("LYRICISTCERT").present? ? "http://#{@song.attachment_url("LYRICISTCERT")}" : ""
 json.composer_cert @song.attachment_url("COMPOSERCERT").present? ? "http://#{@song.attachment_url("COMPOSERCERT")}" : ""
