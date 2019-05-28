@@ -3,7 +3,7 @@ json.songs @playlist.songs do |song|
     json.type "song"
     json.ID song.id
     json.title song.title
-    json.audioFile song.attachment_url("AUDIOFILE").present? ? "http://#{@song.attachment_url("AUDIOFILE")}" : ""
+    json.audioFile song.attachment_url("AUDIOFILE").present? ? "http://#{song.attachment_url("AUDIOFILE")}" : ""
     json.artists song.artists.map(&:name)
     # json.coverimg song.albums.present? ? "http://#{song.albums[0].artwork}" : "" 
     # json.copyrights do
