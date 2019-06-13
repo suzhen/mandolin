@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_21_130016) do
+ActiveRecord::Schema.define(version: 2019_06_13_082157) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(version: 2019_05_21_130016) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "agreement_number", comment: "权利对应协议编号"
+    t.string "rights_type"
     t.index ["song_id"], name: "index_lyric_copies_on_song_id"
   end
 
@@ -156,6 +157,7 @@ ActiveRecord::Schema.define(version: 2019_05_21_130016) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "agreement_number", comment: "权利对应协议编号"
+    t.string "rights_type"
     t.index ["song_id"], name: "index_melody_copies_on_song_id"
   end
 
@@ -230,6 +232,9 @@ ActiveRecord::Schema.define(version: 2019_05_21_130016) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "agreement_number", comment: "权利对应协议编号"
+    t.string "rights_type"
+    t.string "scope_business"
+    t.string "authorization"
     t.index ["song_id"], name: "index_recording_copies_on_song_id"
   end
 

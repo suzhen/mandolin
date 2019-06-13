@@ -46,6 +46,6 @@ class Api::V1::ProducerCopiesController < ApplicationController
     
     # Never trust parameters from the scary internet, only allow the white list through.
     def api_v1_song_producer_copy_params
-        params.fetch(:producer_copy, {}).permit(:name, :share, :begin_date, :end_date, :disctrict, :agreement_number)
+        params.fetch(:producer_copy, {}).permit(:name, :share, :end_date, :disctrict, :agreement_number)
     end
 end

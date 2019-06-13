@@ -46,6 +46,6 @@ class Api::V1::RecordingCopiesController < ApplicationController
     
     # Never trust parameters from the scary internet, only allow the white list through.
     def api_v1_song_recording_copy_params
-        params.fetch(:recording_copy, {}).permit(:name, :share, :begin_date, :end_date, :disctrict, :agreement_number)
+        params.fetch(:recording_copy, {}).permit(:name, :share, :rights_type, :scope_business, :authorization, :end_date, :disctrict, :agreement_number)
     end
 end

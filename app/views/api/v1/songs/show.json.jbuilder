@@ -39,7 +39,6 @@ json.copyrights do
     json.artist @song.producer_copies do |producer_copy| 
         json.name producer_copy.name
         json.district producer_copy.district
-        json.startDate producer_copy.begin_date
         json.endDate producer_copy.end_date
         json.share producer_copy.share ? "#{producer_copy.share*100}%" : 0
         json.agreement_number producer_copy.agreement_number
@@ -47,25 +46,25 @@ json.copyrights do
     json.lyric @song.lyric_copies do |lyric_copy| 
         json.name lyric_copy.name
         json.district lyric_copy.district
-        json.startDate lyric_copy.begin_date
+        json.rightsType lyric_copy.rights_type
         json.endDate lyric_copy.end_date
         json.share lyric_copy.share ? "#{lyric_copy.share*100}%" : 0
         json.agreement_number lyric_copy.agreement_number
     end
-
     json.music @song.melody_copies do |melody_copy| 
         json.name melody_copy.name
         json.district melody_copy.district
-        json.startDate melody_copy.begin_date
+        json.rightsType melody_copy.rights_type
         json.endDate melody_copy.end_date
         json.share melody_copy.share ? "#{melody_copy.share*100}%" : 0
         json.agreement_number melody_copy.agreement_number
     end
-
     json.recording @song.recording_copies do |recording_copy| 
         json.name recording_copy.name
         json.district recording_copy.district
-        json.startDate recording_copy.begin_date
+        json.rightsType recording_copy.rights_type
+        json.scopeBusiness recording_copy.scope_business
+        json.authorization recording_copy.authorization
         json.endDate recording_copy.end_date
         json.share recording_copy.share ? "#{recording_copy.share*100}%" : 0
         json.agreement_number recording_copy.agreement_number
