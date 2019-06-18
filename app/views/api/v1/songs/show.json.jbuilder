@@ -46,7 +46,7 @@ json.copyrights do
     json.lyric @song.lyric_copies do |lyric_copy| 
         json.name lyric_copy.name
         json.op lyric_copy.op
-        json.sp lyric.sp
+        json.sp lyric_copy.sp
         json.district lyric_copy.district
         json.rightsType lyric_copy.rights_type
         json.endDate lyric_copy.end_date
