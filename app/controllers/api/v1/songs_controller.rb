@@ -205,8 +205,8 @@ class Api::V1::SongsController < Api::V1::BaseController
                                      :ownership, :duration, :release_date, :lyrics, :title,
                                      :record_company, :publisher, :library_name, :language, :producer, 
                                      :recording_room, :mixer, :designer, :ar, :UPC, :arranger, :business,
-                                     melody_copies_attributes: [:name, :share, :rights_type, :end_date, :district, :agreement_number],
-                                     lyric_copies_attributes: [:name, :share, :rights_type, :end_date, :district, :agreement_number],
+                                     melody_copies_attributes: [:op, :sp, :name, :share, :rights_type, :end_date, :district, :agreement_number],
+                                     lyric_copies_attributes: [:op, :sp, :name, :share, :rights_type, :end_date, :district, :agreement_number],
                                      producer_copies_attributes: [:name, :share, :end_date, :district, :agreement_number],
                                      recording_copies_attributes: [:name, :share, :rights_type, :scope_business, :authorization, :end_date, :district, :agreement_number],
                                      other_info_attributes: [:publish_platform, :priority, :platform_authorization_expire, :exclusive_authorization_expire, :edition, :remark]).tap do |whitelisted|
