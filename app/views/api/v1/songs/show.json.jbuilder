@@ -45,8 +45,8 @@ json.copyrights do
     end
     json.lyric @song.lyric_copies do |lyric_copy| 
         json.name lyric_copy.name
-        json.op lyric_copy.op
-        json.sp lyric_copy.sp
+        json.OP lyric_copy.op
+        json.SP lyric_copy.sp
         json.district lyric_copy.district
         json.rightsType lyric_copy.rights_type
         json.endDate lyric_copy.end_date
@@ -55,8 +55,8 @@ json.copyrights do
     end
     json.music @song.melody_copies do |melody_copy| 
         json.name melody_copy.name
-        json.op melody_copy.op
-        json.sp melody_copy.sp
+        json.OP melody_copy.op
+        json.SP melody_copy.sp
         json.district melody_copy.district
         json.rightsType melody_copy.rights_type
         json.endDate melody_copy.end_date
