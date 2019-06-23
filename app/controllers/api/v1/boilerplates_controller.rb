@@ -1,4 +1,4 @@
-class Api::V1::BoilerplatesController < ApplicationController
+class Api::V1::BoilerplatesController < Api::V1::BaseController
   before_action :set_boilerplate, only: [:update, :destroy]
 
   # POST /api/v1/boilerplates

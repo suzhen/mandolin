@@ -1,4 +1,4 @@
-class Api::V1::DemosController < ApplicationController
+class Api::V1::DemosController < Api::V1::BaseController
   before_action :set_demo, only: [:update, :show, :destroy]
     
   # PATCH/PUT /api/v1/demos/1

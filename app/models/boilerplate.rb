@@ -1,3 +1,4 @@
+require 'digest'
 class Boilerplate < ApplicationRecord
     # validates
     validates :name, presence: true

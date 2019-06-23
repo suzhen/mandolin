@@ -1,4 +1,4 @@
-class Api::V1::ProducerCopiesController < ApplicationController
+class Api::V1::ProducerCopiesController < Api::V1::BaseController
     before_action :set_song, only: [:create, :update, :destroy]
     before_action :set_producer_copy, only: [:update, :destroy]
 

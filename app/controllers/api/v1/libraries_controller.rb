@@ -1,4 +1,4 @@
-class Api::V1::LibrariesController < ApplicationController
+class Api::V1::LibrariesController < Api::V1::BaseController
   before_action :set_library, only: [:show, :update, :destroy]
 
   # POST /api/v1/libraries

@@ -1,4 +1,4 @@
-class Api::V1::ContractsController < ApplicationController
+class Api::V1::ContractsController < Api::V1::BaseController
   before_action :set_contract, only: [:show, :update, :destroy, :upload_pdf_file, :upload_doc_file]
 
   # POST /api/v1/contracts

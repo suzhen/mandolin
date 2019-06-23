@@ -1,4 +1,4 @@
-class Api::V1::LyricCopiesController < ApplicationController
+class Api::V1::LyricCopiesController < Api::V1::BaseController
     before_action :set_song, only: [:create, :update, :destroy]
     before_action :set_lyric_copy, only: [:update, :destroy]
 

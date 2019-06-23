@@ -1,0 +1,1 @@
+json.extract! api_v1_video, :id, :version, :grouping, :copyright, :producer, :release_date, :recording_date, :duration, :district, :definition, :copyright_company, :origin_copyright, :ISRC, :priority, :created_at, :updated_at
