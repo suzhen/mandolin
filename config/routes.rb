@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       resources :libraries, only: [:show, :create, :update, :destroy]
       resources :contracts, only: [:show, :create, :update, :destroy]
       resources :demos, only: [:create, :update, :destroy]
+      resources :boilerplates, only: [:create, :update, :destroy]
+      post "upboilerplate", to: "boilerplates#upload_file"
       post "upsong", to: "songs#upload_audio_file"
       post "updemo", to: "demos#upload_audio_file"
       post "upcert", to: "songs#upload_cert_file"
