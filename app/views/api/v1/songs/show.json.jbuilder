@@ -6,7 +6,7 @@ json.title @song.title
 json.album @song.albums.present? ? @song.albums[0].title : ""
 json.album_id @song.albums.present? ? @song.albums[0].id : ""
 json.album_release_date @song.albums.present? ? @song.albums[0].release_date : "0000-00-00"
-json.coverimg @song.albums.present? ? "http://#{@song.albums[0].artwork}" : "" 
+json.coverimg @song.albums.present? ? "http://#{@song.albums[0].attachment_url}" : "" 
 json.ISBN @song.albums.present? ? @song.albums[0].ISBN : ""  
 json.artists @song.artists.map(&:name)
 json.artist_ids @song.artists.map(&:id)

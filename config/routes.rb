@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :demos, only: [:create, :update, :destroy]
       resources :boilerplates, only: [:create, :update, :destroy]
       resources :videos, only: [:show, :create, :update, :destroy]
+      post "upartwork", to: "songs#upload_artwork"
       post "upvideo", to: "videos#upload_media_file"
       post "upboilerplate", to: "boilerplates#upload_file"
       post "upsong", to: "songs#upload_audio_file"
