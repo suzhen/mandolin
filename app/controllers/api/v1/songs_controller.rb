@@ -57,12 +57,13 @@ class Api::V1::SongsController < Api::V1::BaseController
   # curl http://0.0.0.0:3050/api/v1/upartwork\?id\=9723 -F "artwork=@/Users/suzhen/Music/网易云音乐/suzhen_test.mp3" -v
   def upload_artwork
     if @song.albums.present?
-      @song.albums.first.artwork = params["artwork"]
+      @album = @song.albums.first
+      @album.artwork = params["artwork"]
     else
-      @song.albums.create!(:title=>"暂无", :artwork=>params["artwork"])
+      @album = @song.albums.create!(:title=>"暂无", :artwork=>params["artwork"])
     end
     respond_to do |format|
-      if @song.save
+      if @album.save
         format.json { render :show, status: :ok, location: @api_v1_song }
       else
         format.json { render json: @api_v1_song.errors, status: :unprocessable_entity }

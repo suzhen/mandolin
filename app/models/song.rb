@@ -55,11 +55,11 @@ class Song < ApplicationRecord
     end
 
     mount_uploader :audio_file, MusicUploader
-    mount_uploader :composer_cert, PdfUploader
-    mount_uploader :lyricist_cert, PdfUploader
-    mount_uploader :performer_cert, PdfUploader
-    mount_uploader :producer_cert, PdfUploader
-    mount_uploader :licence, PdfUploader
+    mount_uploader :composer_cert, PdfDocUploader
+    mount_uploader :lyricist_cert, PdfDocUploader
+    mount_uploader :performer_cert, PdfDocUploader
+    mount_uploader :producer_cert, PdfDocUploader
+    mount_uploader :licence, PdfDocUploader
 
     acts_as_taggable 
 
