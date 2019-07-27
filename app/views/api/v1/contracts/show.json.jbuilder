@@ -2,7 +2,8 @@ json.partial! "api_v1_contract", api_v1_contract: @contract
 json.ID @contract.id
 json.name @contract.name
 json.time_limit @contract.time_limit
-json.expire_date @contract.expire_date
+json.expire_date @contract.expire_date.present? ? @contract.expire_date.strftime("%Y-%m-%d") : ""
+json.auth_duration @contract.auth_duration.present? ? @contract.auth_duration.strftime("%Y-%m-%d") : ""
 json.auth_right @contract.auth_right
 json.song_ids @contract.songs.map(&:id)
 json.song_names @contract.songs.map(&:title)
