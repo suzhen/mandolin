@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_28_131438) do
+ActiveRecord::Schema.define(version: 2019_09_05_042502) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -201,6 +201,9 @@ ActiveRecord::Schema.define(version: 2019_07_28_131438) do
     t.integer "creator_id"
     t.string "code"
     t.string "cypher"
+    t.datetime "expire"
+    t.boolean "allow_download"
+    t.boolean "has_password"
   end
 
   create_table "playlists_songs", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

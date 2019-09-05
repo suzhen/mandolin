@@ -27,5 +27,8 @@ class Playlist < ApplicationRecord
     def generate_code
         self.code = /[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]/.random_example()
         self.cypher = /[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]/.random_example()
+        self.expire = DateTime.now + 3.days
+        self.allow_download = 1
+        self.has_password = 1
     end
 end

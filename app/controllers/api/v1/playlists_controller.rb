@@ -22,6 +22,16 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
           demos.each{|demo| demo.playlist_assignments.create!(:playlist_id=>@playlist.id) }
         end
 
+        if params[:allow_download]
+          @playlist.allow_download = nil
+          @playlist.save
+        end
+        
+        if params[:has_password]
+          @playlist.has_password = nil
+          @playlist.save
+        end
+
         format.json { render :show, status: :created, location: @api_v1_playlist }
       else
         format.json { render json: @playlist.errors, status: :unprocessable_entity }
@@ -33,8 +43,10 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   # GET /api/v1/playlists/1.json
   def show
     respond_to do |format|
-      if @playlist.code == playlist_params[:shared_code] || @playlist.cypher == playlist_params[:shared_code]
-        
+      if @playlist.expire && DateTime.now > @playlist.expire
+        format.json { render json: @playlist.errors, status: :unprocessable_entity }
+      end
+      if @playlist.code == playlist_params[:shared_code] || @playlist.cypher == playlist_params[:shared_code]  
         @playlist.shared_field =  @playlist.code == playlist_params[:shared_code] ? "code" : "cypher"
         format.json { render :show, status: :ok, location: @api_v1_playlist }
       else
@@ -90,7 +102,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def playlist_params
-      params.fetch(:playlist, {}).permit(:name, :introduction).tap do |whitelisted|
+      params.fetch(:playlist, {}).permit(:name, :introduction, :allow_download, :has_password).tap do |whitelisted|
         whitelisted[:shared_code] = params[:shared_code] if params[:shared_code]
       end
     end
