@@ -32,6 +32,11 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
           @playlist.save
         end
 
+        if params[:expire]
+          @playlist.expire = DateTime.now + 3.days
+          @playlist.save
+        end
+
         format.json { render :show, status: :created, location: @api_v1_playlist }
       else
         format.json { render json: @playlist.errors, status: :unprocessable_entity }
