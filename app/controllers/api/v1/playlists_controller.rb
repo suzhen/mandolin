@@ -87,18 +87,12 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
         end
 
         if params[:allow_download]
-          @playlist.allow_download = 1
-          @playlist.save
-        else
-          @playlist.allow_download = nil
+          @playlist.allow_download = params[:allow_download]=="1" ? 1 : nil
           @playlist.save
         end
         
         if params[:has_password]
-          @playlist.has_password = 1
-          @playlist.save
-        else
-          @playlist.has_password = nil
+          @playlist.has_password = params[:has_password]=="1" ? 1 : nil
           @playlist.save
         end
 
