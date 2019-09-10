@@ -1,7 +1,7 @@
 json.partial! "api_v1_playlist", api_v1_playlist: @playlist
 json.allow_download !@playlist.allow_download.nil?
 json.has_password !@playlist.has_password.nil?
-json.expire !@playlist.expire.nil?
+json.expire_at @playlist.expire.nil? ? "" : @playlist.expire
 
 json.songs @playlist.songs do |song|
     json.type "song"

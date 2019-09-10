@@ -35,9 +35,6 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
         if params[:expire]
           @playlist.expire = DateTime.parse(params[:expire])
           @playlist.save
-        else
-          @playlist.expire = None
-          @playlist.save
         end
 
         format.json { render :show, status: :created, location: @api_v1_playlist }
@@ -88,6 +85,25 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
             demo.playlist_assignments.create!(:playlist_id=>@playlist.id)
           end
         end
+
+        if params[:allow_download]
+          @playlist.allow_download = nil
+          @playlist.save
+        end
+        
+        if params[:has_password]
+          @playlist.has_password = nil
+          @playlist.save
+        end
+
+        if params[:expire]
+          @playlist.expire = DateTime.parse(params[:expire])
+          @playlist.save
+        else
+          @playlist.expire = nil
+          @playlist.save
+        end
+
         format.json { render :show, status: :ok, location: @api_v1_playlist }
       else
         format.json { render json: @playlist.errors, status: :unprocessable_entity }
