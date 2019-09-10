@@ -97,10 +97,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
         end
 
         if params[:expire_at]
-          @playlist.expire = DateTime.parse(params[:expire_at])
-          @playlist.save
-        else
-          @playlist.expire = nil
+          @playlist.expire = params[:expire_at]=="0" ? nil : DateTime.parse(params[:expire_at])
           @playlist.save
         end
 
