@@ -33,7 +33,10 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
         end
 
         if params[:expire]
-          @playlist.expire = DateTime.now + 3.days
+          @playlist.expire = DateTime.parse(params[:expire])
+          @playlist.save
+        else
+          @playlist.expire = None
           @playlist.save
         end
 
