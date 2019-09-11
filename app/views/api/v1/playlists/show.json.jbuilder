@@ -2,10 +2,12 @@ json.partial! "api_v1_playlist", api_v1_playlist: @playlist
 json.allow_download !@playlist.allow_download.nil?
 json.has_password !@playlist.has_password.nil?
 json.expire_at @playlist.expire.nil? ? "" : @playlist.expire
+# json.position @playlist.playlist_assignments.
 
 json.songs @playlist.songs do |song|
     json.type "song"
     json.ID song.id
+    json.position song.playlist_assignments.where(:playlist_id=>@playlist.id).first.position
     json.title song.title
     json.audioFile song.attachment_url("AUDIOFILE").present? ? "http://#{song.attachment_url("AUDIOFILE")}" : ""
     json.artists song.artists.map(&:name)
@@ -49,6 +51,8 @@ json.songs @playlist.songs do |song|
 end
 json.demos @playlist.demos do |demo|
     json.type "demo"
+    json.ID demo.id
+    json.position demo.playlist_assignments.where(:playlist_id=>@playlist.id).first.position
     json.title demo.title
     json.genre demo.genere_to_str
     json.source demo.source 
