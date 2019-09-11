@@ -49,7 +49,7 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   def show
     respond_to do |format|
       if @playlist.expire && DateTime.now > @playlist.expire
-        format.json { render json: @playlist.errors, status: :unprocessable_entity }
+        format.json { render json: @playlist.errors, status: :forbidden }
       end
       if @playlist.has_password.nil?
         format.json { render :show, status: :ok, location: @api_v1_playlist }
