@@ -11,15 +11,15 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
       if @playlist.save
         if params[:song_ids]
           songs = []
-          params[:song_ids].each{|song_id| songs << Song.find_by(:id=>song_id)}
-          songs = songs.compact.reject(&:nil?)
-          songs.each{|song| song.playlist_assignments.create!(:playlist_id=>@playlist.id) }
+          params[:song_ids].each{|song_id| songs << {:song=>Song.find_by(:id=>song_id["id"]), :position=>song_id["position"]} }
+          # songs = songs.compact.reject(&:nil?)
+          songs.each{|song_info| song_info[:song].playlist_assignments.create!(:playlist_id=>@playlist.id, :position=>song_info[:position]) }
         end
         
         if params[:demo_ids]
           demos = []
-          params[:demo_ids].map{|demo_id| demos << Demo.find_by(:id=>demo_id) }
-          demos.each{|demo| demo.playlist_assignments.create!(:playlist_id=>@playlist.id) }
+          params[:demo_ids].map{|demo_id| demos << {:demo=>Demo.find_by(:id=>demo_id["id"]), :position=>demo_id["position"]} }
+          demos.each{|demo_info| demo_info[:demo].playlist_assignments.create!(:playlist_id=>@playlist.id, :position=>demo_info[:position]) }
         end
 
         if params[:allow_download]
@@ -73,19 +73,15 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
         @playlist.playlist_assignments.destroy_all
         if params[:song_ids]
           songs = []
-          params[:song_ids].each{|song_id| songs << Song.find_by(:id=>song_id)}
-          songs = songs.compact.reject(&:nil?)
-          songs.each do |song| 
-            song.playlist_assignments.create!(:playlist_id=>@playlist.id)
-          end
+          params[:song_ids].each{|song_id| songs << {:song=>Song.find_by(:id=>song_id["id"]), :position=>song_id["position"]} }
+          # songs = songs.compact.reject(&:nil?)
+          songs.each{|song_info| song_info[:song].playlist_assignments.create!(:playlist_id=>@playlist.id, :position=>song_info[:position]) }
         end
         
         if params[:demo_ids]
           demos = []
-          params[:demo_ids].map{|demo_id| demos << Demo.find_by(:id=>demo_id) }
-          demos.each do |demo| 
-            demo.playlist_assignments.create!(:playlist_id=>@playlist.id)
-          end
+          params[:demo_ids].map{|demo_id| demos << {:demo=>Demo.find_by(:id=>demo_id["id"]), :position=>demo_id["position"]} }
+          demos.each{|demo_info| demo_info[:demo].playlist_assignments.create!(:playlist_id=>@playlist.id, :position=>demo_info[:position]) }
         end
 
         if params[:allow_download]
