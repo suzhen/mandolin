@@ -49,7 +49,8 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
   def show
     respond_to do |format|
       if @playlist.expire && DateTime.now > @playlist.expire
-        format.json { render json: @playlist.errors, status: :forbidden }
+        # format.json { render json: @playlist.errors, status: :forbidden }
+        format.json { render json: {:error=>2}, status: :ok }
       end
       if @playlist.has_password.nil?
         format.json { render :show, status: :ok, location: @api_v1_playlist }
@@ -58,7 +59,8 @@ class Api::V1::PlaylistsController < Api::V1::BaseController
         @playlist.shared_field =  @playlist.code == playlist_params[:shared_code] ? "code" : "cypher"
         format.json { render :show, status: :ok, location: @api_v1_playlist }
       else
-        format.json { render json: @playlist.errors, status: :unprocessable_entity }
+        # format.json { render json: @playlist.errors, status: :unprocessable_entity }
+        format.json { render json: {:error=>1}, status: :ok }
       end
     end
   end
