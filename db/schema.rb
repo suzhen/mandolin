@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_11_102927) do
+ActiveRecord::Schema.define(version: 2019_09_19_145015) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(version: 2019_09_11_102927) do
   end
 
   create_table "playlist_assignments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "playlist_id"
+    t.string "playlist_id"
     t.integer "playable_id"
     t.string "playable_type"
     t.datetime "created_at", null: false
@@ -194,7 +194,7 @@ ActiveRecord::Schema.define(version: 2019_09_11_102927) do
     t.index ["playlist_id"], name: "index_playlist_assignments_on_playlist_id"
   end
 
-  create_table "playlists", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "playlists", id: :string, default: "", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.text "introduction"
     t.datetime "created_at", null: false
@@ -215,7 +215,7 @@ ActiveRecord::Schema.define(version: 2019_09_11_102927) do
   end
 
   create_table "playlists_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "playlist_id", null: false
+    t.string "playlist_id", null: false
     t.bigint "user_id", null: false
     t.index ["playlist_id"], name: "index_playlists_users_on_playlist_id"
     t.index ["user_id"], name: "index_playlists_users_on_user_id"

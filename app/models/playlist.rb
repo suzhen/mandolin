@@ -1,3 +1,4 @@
+require 'securerandom'
 class Playlist < ApplicationRecord
 
     attr_accessor :shared_field
@@ -25,6 +26,7 @@ class Playlist < ApplicationRecord
 
     private
     def generate_code
+        self.id = SecureRandom.uuid
         self.code = /[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]/.random_example()
         self.cypher = /[A-Z0-9][A-Z0-9][A-Z0-9][A-Z0-9]/.random_example()
         self.allow_download = 1
