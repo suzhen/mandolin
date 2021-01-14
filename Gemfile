@@ -70,7 +70,7 @@ gem 'awesome_nested_set'
 
 gem 'simple_form'
 
-gem 'rails_admin', '~> 1.4', '>= 1.4.2'
+gem 'rails_admin', '~> 1.4'
 
 gem 'devise'
 
